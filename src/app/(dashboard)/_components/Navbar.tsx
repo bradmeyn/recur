@@ -1,34 +1,43 @@
 "use client";
 
-import { RiMoneyDollarCircleFill } from "@remixicon/react";
+import {
+  RiMoneyDollarCircleFill,
+  RiRefund2Line,
+  RiPieChartLine,
+} from "@remixicon/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const links = [
     {
-      name: "Home",
-      href: "/dashboard",
+      name: "Budget",
+      href: "/dashboard/budget",
+      Icon: RiPieChartLine,
     },
     {
       name: "Subscriptions",
       href: "/dashboard/subscriptions",
-    },
-
-    {
-      name: "Budget",
-      href: "/dashboard/budget",
+      Icon: RiRefund2Line,
     },
   ];
 
   return (
-    <nav className="flex p-4 fixed sm:static sm:h-full sm:flex sm:flex-col bottom-1 w-full sm:w-[300px] rounded-lg bg-slate-700">
-      <div className="mb-10 text-4xl font-semibold p-4 text-white">
+    <nav>
+      <Link
+        href={"/"}
+        className="text-3xl font-semibold md:mb-10 text-white hidden md:block"
+      >
         Supabudget
-      </div>
-      <ul className="flex sm:flex-col gap-1 w-full">
+      </Link>
+      <ul className="flex md:flex-col gap-2 justify-center  w-full">
         {links.map((link) => (
-          <NavbarLink key={link.href} name={link.name} href={link.href} />
+          <NavbarLink
+            key={link.href}
+            name={link.name}
+            href={link.href}
+            Icon={link.Icon}
+          />
         ))}
       </ul>
     </nav>
@@ -38,9 +47,10 @@ export default function Navbar() {
 type NavbarLinkProps = {
   name: string;
   href: string;
+  Icon: React.ElementType;
 };
 
-function NavbarLink({ name, href }: NavbarLinkProps) {
+function NavbarLink({ name, href, Icon }: NavbarLinkProps) {
   const currentPath = usePathname();
   const isActive = currentPath === href;
   const activeClasses =
@@ -55,8 +65,8 @@ function NavbarLink({ name, href }: NavbarLinkProps) {
           isActive ? activeClasses : inactiveClasses
         }`}
       >
-        <RiMoneyDollarCircleFill className="inline-block" />
-        <span>{name}</span>
+        <Icon className="inline-block" />
+        <span className="hidden md:inline">{name}</span>
       </Link>
     </li>
   );

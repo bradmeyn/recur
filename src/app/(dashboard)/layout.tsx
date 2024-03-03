@@ -15,16 +15,18 @@ export default function DashboardLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-tremor-background-muted flex flex-col sm:flex-row p-4  min-h-screen">
-        <aside>
-          <Navbar />
-        </aside>
+      <body className="bg-tremor-background-muted min-h-screen flex flex-col">
+        <div className="p-4 flex-1 flex flex-col-reverse justify-between md:justify-start md:flex-row h-full">
+          <aside className="md:w-[400px] p-8 rounded-lg bg-slate-700 ">
+            <Navbar />
+          </aside>
 
-        <div className="w-full p-10 ">
-          <Header />
-          <main className="flex-1 bg-tremor-background-muted rounded-lg ">
-            {children}
-          </main>
+          <div className="w-full sm:p-10 max-w-[1200px]">
+            <Header />
+            <main className="flex-1 bg-tremor-background-muted rounded-lg ">
+              {children}
+            </main>
+          </div>
         </div>
       </body>
     </html>
