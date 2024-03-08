@@ -12,7 +12,6 @@ import {
   Card,
   DonutChart,
   Legend,
-  BarChart,
 } from "@tremor/react";
 
 export default function Dashboard() {

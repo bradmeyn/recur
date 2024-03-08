@@ -11,7 +11,7 @@ export interface Expense {
   name: string;
   cost: number;
   frequency: string;
-  type: "Fixed" | "Variable" | "Subscription";
+  type: "Fixed" | "Variable" | "Subscription" | "Savings";
   category: string;
 }
 
@@ -150,5 +150,22 @@ export const EXPENSES: Expense[] = [
     cost: 100,
     frequency: "Monthly",
     type: "Fixed",
+  },
+
+  {
+    id: 7,
+    name: "Gym Membership",
+    category: "Health",
+    cost: 50,
+    frequency: "Fortnightly",
+    type: "Subscription",
+  },
+  {
+    id: 8,
+    name: "Savings",
+    category: "Savings",
+    cost: 500,
+    frequency: "Monthly",
+    type: "Savings",
   },
 ];

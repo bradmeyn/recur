@@ -1,9 +1,11 @@
 "use client";
 
 import {
-  RiMoneyDollarCircleFill,
+  RiMoneyDollarCircleLine,
   RiRefund2Line,
   RiPieChartLine,
+  RiCoinLine,
+  RiSettings4Line,
 } from "@remixicon/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -11,14 +13,29 @@ import { usePathname } from "next/navigation";
 export default function Navbar() {
   const links = [
     {
+      name: "Dashboard",
+      href: "/dashboard/",
+      Icon: RiPieChartLine,
+    },
+    {
       name: "Budget",
       href: "/dashboard/budget",
-      Icon: RiPieChartLine,
+      Icon: RiMoneyDollarCircleLine,
     },
     {
       name: "Subscriptions",
       href: "/dashboard/subscriptions",
       Icon: RiRefund2Line,
+    },
+    {
+      name: "Balance Sheet",
+      href: "/dashboard/balance-sheet",
+      Icon: RiCoinLine,
+    },
+    {
+      name: "Settings",
+      href: "/dashboard/settings",
+      Icon: RiSettings4Line,
     },
   ];
 
