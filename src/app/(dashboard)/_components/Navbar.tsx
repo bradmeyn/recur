@@ -6,9 +6,12 @@ import {
   RiPieChartLine,
   RiCoinLine,
   RiSettings4Line,
+  RiAccountCircleFill,
 } from "@remixicon/react";
+import { Divider } from "@tremor/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { signOutAction } from "@/app/(marketing)/actions";
 
 export default function Navbar() {
   const links = [
@@ -26,16 +29,6 @@ export default function Navbar() {
       name: "Subscriptions",
       href: "/dashboard/subscriptions",
       Icon: RiRefund2Line,
-    },
-    {
-      name: "Balance Sheet",
-      href: "/dashboard/balance-sheet",
-      Icon: RiCoinLine,
-    },
-    {
-      name: "Settings",
-      href: "/dashboard/settings",
-      Icon: RiSettings4Line,
     },
   ];
 
@@ -56,6 +49,17 @@ export default function Navbar() {
             Icon={link.Icon}
           />
         ))}
+
+        <Divider />
+        <form action={signOutAction}>
+          <button
+            onClick={signOutAction}
+            className="mb-3 p-2 font-semibold flex gap-4 transition-all duration-200 ease-in-out rounded-lg text-slate-100 hover:text-indigo-300"
+          >
+            <RiAccountCircleFill size={20} />
+            Sign Out
+          </button>
+        </form>
       </ul>
     </nav>
   );

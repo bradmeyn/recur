@@ -42,7 +42,9 @@ function IncomeItem({ income }: IncomeItemProps) {
   const total = income.value * 26;
   return (
     <TableRow key={income.id}>
-      <TableCell>{income.name}</TableCell>
+      <TableCell className="text-slate-900 font-semibold">
+        {income.name}
+      </TableCell>
       <TableCell>{formatAsCurrency(income.value)}</TableCell>
       <TableCell>{income.frequency}</TableCell>
       <TableCell>{income.category}</TableCell>

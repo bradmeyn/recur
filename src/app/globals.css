@@ -12,14 +12,14 @@
   }
 
   h2 {
-    @apply text-slate-600 font-semibold text-lg;
+    @apply text-slate-500;
   }
 
   h3 {
-    @apply text-slate-500 font-semibold text-base;
+    @apply text-slate-600 font-semibold;
   }
 
   label {
-    @apply text-slate-800 text-sm;
+    @apply text-tremor-default font-medium text-tremor-content-strong dark:text-dark-tremor-content-strong mb-2 block;
   }
 }

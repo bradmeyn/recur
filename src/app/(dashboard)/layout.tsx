@@ -3,7 +3,7 @@ import "@/app/globals.css";
 import Header from "../(dashboard)/_components/Header";
 import Navbar from "../(dashboard)/_components/Navbar";
 import { redirect } from "next/navigation";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "Supabudget | Dashboard",
