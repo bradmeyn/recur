@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 
-export async function signUpAction(formData: FormData) {
+export async function registerAction(formData: FormData) {
   console.log("signUp");
   console.log("formData", formData);
   const supabase = createClient();
@@ -32,7 +32,7 @@ type FormState = {
   password: string;
 };
 
-export async function signInAction(prevState: FormState, formData: FormData) {
+export async function loginAction(prevState: FormState, formData: FormData) {
   console.log("signIn");
   console.log("formData", formData);
   console.log("prevState", prevState);
@@ -53,12 +53,11 @@ export async function signInAction(prevState: FormState, formData: FormData) {
       password,
     };
   }
-  console.log("success");
 }
 
-export async function signOutAction() {
+export async function logoutAction() {
   const supabase = createClient();
   const result = await supabase.auth.signOut();
 
-  console.log("result", result);
+  return redirect("/");
 }

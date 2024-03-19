@@ -1,6 +1,6 @@
 "use client";
 import { SUBSCRIPTIONS } from "@/app/data";
-import { formatAsCurrency } from "@/app/utils";
+import { formatAsCurrency } from "@/lib/utils";
 
 import {
   Table,

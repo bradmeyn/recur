@@ -1,7 +1,7 @@
 export type Income = {
   id: number;
-  name: string;
-  value: number;
+  detail: string;
+  amount: number;
   frequency: string;
   category: string;
 };

@@ -11,15 +11,11 @@ import {
 import { Divider } from "@tremor/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { signOutAction } from "@/app/(marketing)/actions";
+import { logoutAction } from "@/app/(marketing)/actions";
+import Image from "next/image";
 
 export default function Navbar() {
   const links = [
-    {
-      name: "Dashboard",
-      href: "/dashboard/",
-      Icon: RiPieChartLine,
-    },
     {
       name: "Budget",
       href: "/dashboard/budget",
@@ -38,7 +34,12 @@ export default function Navbar() {
         href={"/"}
         className="text-3xl font-semibold md:mb-10 text-white hidden md:block"
       >
-        Supabudget
+        <Image
+          src={"./logo.svg"}
+          alt="Supabudget Logo"
+          width={40}
+          height={40}
+        />
       </Link>
       <ul className="flex md:flex-col gap-2 justify-center  w-full">
         {links.map((link) => (
@@ -51,13 +52,9 @@ export default function Navbar() {
         ))}
 
         <Divider />
-        <form action={signOutAction}>
-          <button
-            onClick={signOutAction}
-            className="mb-3 p-2 font-semibold flex gap-4 transition-all duration-200 ease-in-out rounded-lg text-slate-100 hover:text-indigo-300"
-          >
+        <form action={logoutAction}>
+          <button className="mb-3 p-2 font-semibold flex gap-4 transition-all duration-200 ease-in-out rounded-lg text-slate-100 hover:text-indigo-300">
             <RiAccountCircleFill size={20} />
-            Sign Out
           </button>
         </form>
       </ul>
@@ -87,7 +84,7 @@ function NavbarLink({ name, href, Icon }: NavbarLinkProps) {
         }`}
       >
         <Icon className="inline-block" />
-        <span className="hidden md:inline">{name}</span>
+        {/* <span className="hidden md:inline">{name}</span> */}
       </Link>
     </li>
   );

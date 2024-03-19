@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function Header() {
@@ -10,7 +11,13 @@ export default async function Header() {
 
   return (
     <header className="flex justify-between container py-4">
-      <span className="text-slate-900 font-bold ">Supabudget</span>
+      <Link
+        href={"/"}
+        className="text-slate-900 font-bold flex items-center gap-1 "
+      >
+        <Image src="./logo.svg" alt="Supabudget Logo" width={40} height={40} />
+        <span className="text-xl">Supabudget</span>
+      </Link>
 
       {user ? <AuthenticatedLinks /> : <UnauthenticatedLinks />}
     </header>
@@ -20,15 +27,11 @@ export default async function Header() {
 function UnauthenticatedLinks() {
   return (
     <div className="flex gap-4 items-center">
-      <Link href="/login" className="rounded-full  py-2 px-5 ">
-        Login
-      </Link>
-
       <Link
-        href="/sign-up"
+        href="/login"
         className="rounded-full bg-tremor-brand text-white py-2 px-5 "
       >
-        Sign up
+        Sign in
       </Link>
     </div>
   );

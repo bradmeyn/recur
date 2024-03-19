@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import "@/app/globals.css";
 import Header from "../(dashboard)/_components/Header";
 import Navbar from "../(dashboard)/_components/Navbar";
-import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "Supabudget | Dashboard",
@@ -15,19 +13,11 @@ export default async function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return redirect("/login");
-  }
   return (
     <html lang="en">
       <body className="bg-tremor-background-muted min-h-screen flex flex-col">
         <div className="p-4 flex-1 flex flex-col-reverse justify-between md:justify-start md:flex-row h-full">
-          <aside className="md:w-[400px] p-8 rounded-lg bg-slate-700 ">
+          <aside className="p-4 rounded-lg bg-slate-700 ">
             <Navbar />
           </aside>
 

@@ -1,47 +1,13 @@
 "use client";
-import { Divider, Card } from "@tremor/react";
-import { GitHubButton, GoogleButton } from "../_components/AuthButtons";
+
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
-import FormInput from "../_components/FormInput";
+import { Input } from "@/components/Inputs";
 import { RiCheckFill, RiErrorWarningFill } from "@remixicon/react";
 import { useRef } from "react";
 import { useFormState } from "react-dom";
 import { SignUpWithPasswordCredentials } from "@supabase/supabase-js";
-
-export default function SignUpPage() {
-  return (
-    <div className="flex min-h-full flex-1 flex-col mt-20 px-4 py-10 lg:px-6">
-      <h1 className="text-center mb-10">Supabudget</h1>
-      <Card className="sm:mx-auto sm:w-full sm:max-w-lg">
-        <h3 className="text-center text-tremor-title font-semibold text-tremor-content-strong dark:text-dark-tremor-content-strong">
-          Create an account
-        </h3>
-
-        <SignUpForm />
-
-        <Divider>or with</Divider>
-        <div className="grid grid-cols-2 gap-2">
-          <GoogleButton />
-          <GitHubButton />
-        </div>
-
-        <p className="mt-4 text-tremor-label text-tremor-content dark:text-dark-tremor-content text-center">
-          By signing in, you agree to our{" "}
-          <a href="#" className="underline underline-offset-4">
-            terms of service
-          </a>{" "}
-          and{" "}
-          <a href="#" className="underline underline-offset-4">
-            privacy policy
-          </a>
-          .
-        </p>
-      </Card>
-    </div>
-  );
-}
 
 type FormInputs = {
   firstName: string;
@@ -51,30 +17,28 @@ type FormInputs = {
   confirmPassword: string;
 };
 
-const schema = z
-  .object({
-    firstName: z
-      .string()
-      .trim()
-      .min(2, { message: "First name must be 2 or more letters" }),
-    lastName: z
-      .string()
-      .trim()
-      .min(2, { message: "Last name must be 2 or more letters" }),
-    email: z.string().trim().email({ message: "Email is required" }).min(1),
-    password: z
-      .string()
-      .trim()
-      .min(8, { message: "Password must be 8 or more characters" }),
-    confirmPassword: z.string().trim(),
-  })
-  .refine((data: FormInputs) => data.password === data.confirmPassword, {
-    message: "Passwords must match",
-    path: ["confirmPassword"],
-  });
-
-function SignUpForm() {
-  const [state, formAction] = useFormState();
+export default function RegisterForm() {
+  const schema = z
+    .object({
+      firstName: z
+        .string()
+        .trim()
+        .min(2, { message: "First name must be 2 or more letters" }),
+      lastName: z
+        .string()
+        .trim()
+        .min(2, { message: "Last name must be 2 or more letters" }),
+      email: z.string().trim().email({ message: "Email is required" }).min(1),
+      password: z
+        .string()
+        .trim()
+        .min(8, { message: "Password must be 8 or more characters" }),
+      confirmPassword: z.string().trim(),
+    })
+    .refine((data: FormInputs) => data.password === data.confirmPassword, {
+      message: "Passwords must match",
+      path: ["confirmPassword"],
+    });
 
   const {
     register,
@@ -106,7 +70,7 @@ function SignUpForm() {
       onSubmit={handleSubmit(() => formRef.current?.submit())} //
     >
       <div className="col-span-full sm:col-span-1">
-        <FormInput
+        <Input
           label="First name"
           id="first-name"
           type="text"
@@ -117,7 +81,7 @@ function SignUpForm() {
       </div>
 
       <div className="col-span-full sm:col-span-1">
-        <FormInput
+        <Input
           label="Last name"
           id="last-name"
           type="text"
@@ -128,7 +92,7 @@ function SignUpForm() {
       </div>
 
       <div className="col-span-2">
-        <FormInput
+        <Input
           label="Email"
           id="email"
           type="email"
@@ -138,7 +102,7 @@ function SignUpForm() {
         />
       </div>
       <div className="col-span-2">
-        <FormInput
+        <Input
           label="Password"
           id="password"
           type="password"
@@ -149,7 +113,7 @@ function SignUpForm() {
       </div>
 
       <div className="col-span-2">
-        <FormInput
+        <Input
           label="Confirm password"
           id="confirm-password"
           type="password"
@@ -165,12 +129,12 @@ function SignUpForm() {
 
       <button
         className={`
-          mt-4  col-span-2 w-full  whitespace-nowrap rounded-tremor-default text-tremor-brand-inverted   py-2 text-center text-tremor-default font-medium
-          ${
-            !isValid && isDirty
-              ? "bg-tremor-brand/65 cursor-not-allowed  border-red-600  "
-              : " cursor-pointer bg-tremor-brand shadow-tremor-input hover:bg-tremor-brand-emphasis"
-          }`}
+            mt-4  col-span-2 w-full  whitespace-nowrap rounded-tremor-default text-tremor-brand-inverted   py-2 text-center text-tremor-default font-medium
+            ${
+              !isValid && isDirty
+                ? "bg-tremor-brand/65 cursor-not-allowed  border-red-600  "
+                : " cursor-pointer bg-tremor-brand shadow-tremor-input hover:bg-tremor-brand-emphasis"
+            }`}
         disabled={!isValid}
         type="submit"
       >

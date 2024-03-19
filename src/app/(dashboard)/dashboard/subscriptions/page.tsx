@@ -1,4 +1,4 @@
-import { formatAsCurrency } from "@/app/utils";
+import { formatAsCurrency } from "@/lib/utils";
 import { SUBSCRIPTIONS } from "@/app/data";
 import { Card } from "@tremor/react";
 import SubscriptionTable from "./_components/SubscriptionTable";

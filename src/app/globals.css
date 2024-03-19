@@ -12,7 +12,7 @@
   }
 
   h2 {
-    @apply text-slate-500;
+    @apply text-slate-900 font-semibold text-xl;
   }
 
   h3 {

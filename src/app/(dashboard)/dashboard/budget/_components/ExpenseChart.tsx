@@ -2,7 +2,7 @@
 
 import { Card, DonutChart, Legend } from "@tremor/react";
 import { EXPENSES, SUBSCRIPTIONS } from "@/app/data";
-import { formatAsCurrency } from "@/app/utils";
+import { formatAsCurrency } from "@/lib/utils";
 
 export default function ExpenseChart() {
   const allExpenses = [...EXPENSES, ...SUBSCRIPTIONS];

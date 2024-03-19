@@ -4,17 +4,7 @@ import { GitHubButton, GoogleButton } from "../_components/AuthButtons";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
-import FormInput from "../_components/FormInput";
-import { RiCheckFill, RiErrorWarningFill } from "@remixicon/react";
-
-import { useRef } from "react";
-import { useFormState } from "react-dom";
-import { signInAction } from "../actions";
-
-type FormInputs = {
-  email: string;
-  password: string;
-};
+import { Input } from "@/components/Inputs";
 
 const schema = z.object({
   email: z.string().trim().email({ message: "Email is required" }).min(1),
@@ -25,16 +15,8 @@ const schema = z.object({
 });
 
 export default function LoginForm() {
-  const [state, formAction] = useFormState(signInAction, {
-    email: "",
-    password: "",
-    message: "",
-  });
-
   const {
     register,
-    handleSubmit,
-    watch,
     formState: { errors, isSubmitting, isValid, isDirty },
   } = useForm<z.output<typeof schema>>({
     resolver: zodResolver(schema),
@@ -44,19 +26,14 @@ export default function LoginForm() {
     },
   });
 
-  const formRef = useRef<HTMLFormElement>(null);
-
   return (
     <>
-      <div>{state.message}</div>
       <form
-        ref={formRef}
-        action={formAction}
         className="mt-6 grid grid-cols-2 gap-5"
         // onSubmit={handleSubmit(() => formRef.current.)} //
       >
         <div className="col-span-2">
-          <FormInput
+          <Input
             label="Email"
             id="email"
             type="email"
@@ -66,7 +43,7 @@ export default function LoginForm() {
           />
         </div>
         <div className="col-span-2">
-          <FormInput
+          <Input
             label="Password"
             id="password"
             type="password"
@@ -87,7 +64,7 @@ export default function LoginForm() {
           disabled={!isValid}
           type="submit"
         >
-          Sign up
+          Sign in
         </button>
       </form>
     </>
