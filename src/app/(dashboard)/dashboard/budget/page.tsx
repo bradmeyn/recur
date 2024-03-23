@@ -1,10 +1,11 @@
 import { Card, ProgressCircle } from "@tremor/react";
-import { IncomeTable, ExpenseTable } from "./_components/Tables";
-import ExpenseChart from "./_components/ExpenseChart";
+import HeaderCards from "./_components/HeaderCards";
+import { ExpenseChart } from "./_components/Charts";
 import { EXPENSES, Income } from "@/app/data";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
+import TableTabs from "./_components/TableTabs";
 
 export default async function BudgetPage() {
   const fixedExpenses = EXPENSES.filter((e) => e.type === "Fixed");
@@ -25,22 +26,16 @@ export default async function BudgetPage() {
     .eq("user_id", user?.id);
 
   return (
-    <>
-      <div>
-        <Card className="col-span-12 md:col-span-6 lg:col-span-4">
-          <IncomeTable income={income} />
-        </Card>
+    <div className="grid grid-cols-12 gap-8">
+      <HeaderCards />
 
-        {/* <Card className="col-span-12 md:col-span-6 lg:col-span-6">
-          <h2>Variable Expenses</h2>
-          <ExpenseTable expenses={variableExpenses} />
-        </Card>
+      <Card className="col-span-12  lg:col-span-8">
+        <TableTabs />
+      </Card>
 
-        <Card className="col-span-12 md:col-span-6 lg:col-span-6">
-          <h2>Fixed Expenses</h2>
-          <ExpenseTable expenses={fixedExpenses} />
-        </Card> */}
-      </div>
-    </>
+      <Card className="col-span-12  lg:col-span-4">
+        <ExpenseChart />
+      </Card>
+    </div>
   );
 }

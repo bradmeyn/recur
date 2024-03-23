@@ -22,11 +22,10 @@ type Props = {
 export function IncomeTable({ income }: Props) {
   return (
     <>
-      <div className="flex items-center justify-between mb-3">
-        <h2 className="text-xl font-semibold text-slate-700">Income</h2>
+      <div className="flex items-center justify-between mb-6">
+        <h2>Income</h2>
         <AddIncome />
       </div>
-
       <Table>
         <TableHead>
           <TableRow className="border-b border-tremor-border dark:border-dark-tremor-border">
@@ -58,9 +57,7 @@ export function IncomeTable({ income }: Props) {
             <TableFooterCell></TableFooterCell>
             <TableFooterCell></TableFooterCell>
             <TableFooterCell></TableFooterCell>
-            <TableFooterCell className="text-lg text-tremor-content-strong">
-              $100
-            </TableFooterCell>
+            <TableFooterCell className="text-lg text-tremor-content-strong"></TableFooterCell>
           </TableRow>
         </TableFoot>
       </Table>

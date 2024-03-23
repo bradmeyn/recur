@@ -5,6 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Input } from "@/components/Inputs";
+import { loginAction } from "../actions";
 
 const schema = z.object({
   email: z.string().trim().email({ message: "Email is required" }).min(1),
@@ -17,6 +18,7 @@ const schema = z.object({
 export default function LoginForm() {
   const {
     register,
+    trigger,
     formState: { errors, isSubmitting, isValid, isDirty },
   } = useForm<z.output<typeof schema>>({
     resolver: zodResolver(schema),
@@ -26,9 +28,26 @@ export default function LoginForm() {
     },
   });
 
+  const clientLoginAction = async (data: FormData) => {
+    // Validate the form
+    trigger();
+
+    if (!isValid) {
+      console.log(isValid);
+      alert("Form is invalid");
+
+      return;
+    }
+
+    // Call the server action
+    const result = await loginAction(data);
+    console.log(result);
+  };
+
   return (
     <>
       <form
+        action={clientLoginAction}
         className="mt-6 grid grid-cols-2 gap-5"
         // onSubmit={handleSubmit(() => formRef.current.)} //
       >

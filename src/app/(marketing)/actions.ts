@@ -32,10 +32,9 @@ type FormState = {
   password: string;
 };
 
-export async function loginAction(prevState: FormState, formData: FormData) {
+export async function loginAction(formData: FormData) {
   console.log("signIn");
   console.log("formData", formData);
-  console.log("prevState", prevState);
 
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;

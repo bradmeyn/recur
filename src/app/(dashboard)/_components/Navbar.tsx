@@ -26,20 +26,21 @@ export default function Navbar() {
       href: "/dashboard/subscriptions",
       Icon: RiRefund2Line,
     },
+    {
+      name: "Balance Sheet",
+      href: "/dashboard/balance-sheet",
+      Icon: RiPieChartLine,
+    },
   ];
 
   return (
     <nav>
       <Link
         href={"/"}
-        className="text-3xl font-semibold md:mb-10 text-white hidden md:block"
+        className="text-xl font-semibold md:mb-10 text-white flex gap-2 items-center"
       >
-        <Image
-          src={"./logo.svg"}
-          alt="Supabudget Logo"
-          width={40}
-          height={40}
-        />
+        <Image src="/logo.png" alt="Supabudget Logo" width={40} height={40} />
+        <span className="mt-1">Budget</span>
       </Link>
       <ul className="flex md:flex-col gap-2 justify-center  w-full">
         {links.map((link) => (
@@ -53,8 +54,9 @@ export default function Navbar() {
 
         <Divider />
         <form action={logoutAction}>
-          <button className="mb-3 p-2 font-semibold flex gap-4 transition-all duration-200 ease-in-out rounded-lg text-slate-100 hover:text-indigo-300">
+          <button className="font-semibold text-white flex gap-4 items-center hover:text-indigo-300">
             <RiAccountCircleFill size={20} />
+            <span>Sign out</span>
           </button>
         </form>
       </ul>
@@ -84,7 +86,7 @@ function NavbarLink({ name, href, Icon }: NavbarLinkProps) {
         }`}
       >
         <Icon className="inline-block" />
-        {/* <span className="hidden md:inline">{name}</span> */}
+        <span className="hidden md:inline">{name}</span>
       </Link>
     </li>
   );
