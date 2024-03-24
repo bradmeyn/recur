@@ -2,8 +2,15 @@
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@tremor/react";
 import { IncomeTable } from "./Tables";
+import { Income } from "@/types/data";
 
-export default function TableTabs() {
+export default function TableTabs({
+  userId,
+  income,
+}: {
+  userId: string;
+  income: Income[];
+}) {
   return (
     <div>
       <TabGroup>
@@ -14,14 +21,13 @@ export default function TableTabs() {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <IncomeTable income={[]} />
+            <IncomeTable userId={userId} income={income} />
           </TabPanel>
           <TabPanel>
-            <p className="mt-4 leading-6 text-tremor-default text-tremor-content dark:text-dark-tremor-content">
-              Diam nonumy eirmod tempor invidunt ut labore et dolore magna
-              aliquyam erat. Lorem ipsum dolor sit amet, consetetur sadipscing
-              elitr.
-            </p>
+            <h1>Expenses</h1>
+          </TabPanel>
+          <TabPanel>
+            <h1>Savings</h1>
           </TabPanel>
         </TabPanels>
       </TabGroup>

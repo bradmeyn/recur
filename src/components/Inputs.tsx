@@ -1,18 +1,9 @@
 "use client";
-import { FREQUENCY_OPTIONS } from "@/lib/constants";
+
 import { RiMoneyDollarCircleFill } from "@remixicon/react";
 import { Select, SelectItem, TextInput } from "@tremor/react";
-
 import { Controller } from "react-hook-form";
-import { formatAsCurrency, parseCurrency } from "@/lib/utils";
-import { on } from "events";
-
-type FrequencyInputProps = {
-  label: string;
-  id: string;
-  register: any;
-  error: string | undefined;
-};
+import { formatAsCurrency, parseCurrency } from "../../utils";
 
 type SelectInputProps = {
   label: string;
@@ -23,7 +14,7 @@ type SelectInputProps = {
 };
 
 export function SelectInput({
-  control, // This prop is required to use with Controller
+  control,
   label,
   id,
   error,
@@ -42,7 +33,8 @@ export function SelectInput({
             value={value}
             onChange={onChange}
             ref={ref}
-            className={`${error ? "border border-red-500" : ""}`}
+            // @ts-ignore
+            error={error}
             errorMessage={error}
           >
             {options.map((option) => (
@@ -83,7 +75,6 @@ export function Input({
         type={type}
         placeholder={placeholder}
         {...register}
-        className={`${error ? "border border-red-500" : ""}`}
         error={error}
         errorMessage={error}
       />
@@ -103,7 +94,6 @@ type CurrencyInputProps = {
 export function CurrencyInput({
   label,
   id,
-
   control,
   error,
   name,
@@ -126,14 +116,14 @@ export function CurrencyInput({
             id={id}
             name={name}
             placeholder="0.00"
-            className={`${error ? "border border-red-500" : ""}`}
-            // Format the value only for display purposes
+            // @ts-ignore
+            error={error}
+            errorMessage={error}
             value={formatAsCurrency(fieldProps.value)}
             onChange={(e) => onChange(handleChange(e))}
           />
         )}
       />
-      {error && <span className="text-red-500">{error}</span>}
     </>
   );
 }

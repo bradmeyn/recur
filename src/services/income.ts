@@ -1,28 +1,38 @@
 import { createClient } from "@/lib/supabase/server";
-import { TablesInsert, TablesUpdate, Tables } from "@/types/supabase";
+import { TablesInsert, TablesUpdate } from "@/types/supabase";
+import { Income } from "@/types/data";
 
-const supabase = createClient();
-
-export function addIncome(income: TablesInsert<"income">) {
+export async function addIncome(income: TablesInsert<"income">) {
+  const supabase = createClient();
   return supabase.from("income").insert(income);
 }
 
-export function getIncomeByUser(incomeId: string, userId: string) {
-  return supabase
-    .from("income")
-    .select("*")
-    .eq("id", incomeId)
-    .eq("user_id", userId);
-}
-
-export function updateIncome(income: TablesUpdate<"income">) {
+export async function updateIncome(income: TablesUpdate<"income">) {
+  const supabase = createClient();
   return supabase.from("income").update(income);
 }
 
-export function deleteIncome(incomeId: string) {
+export async function deleteIncome(incomeId: string) {
+  const supabase = createClient();
   return supabase.from("income").delete().eq("id", incomeId);
 }
 
-export function getAllIncomeByUserId(userId: string) {
-  return supabase.from("income").select("*").eq("user_id", userId);
+export async function getIncome(userId: string): Promise<Income[]> {
+  const supabase = createClient();
+  console.log("Getting all income by user id");
+  // Perform the query
+  const { data, error } = await supabase
+    .from("income")
+    .select("*")
+    .eq("user_id", userId);
+
+  console.log("data", data);
+
+  // Handle potential error
+  if (error) {
+    console.error("Error fetching income:", error);
+    throw error; // or handle it in another appropriate way
+  }
+
+  return data as Income[];
 }

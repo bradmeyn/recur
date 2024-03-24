@@ -1,40 +1,26 @@
-import { Card, ProgressCircle } from "@tremor/react";
-import HeaderCards from "./_components/HeaderCards";
-import { ExpenseChart } from "./_components/Charts";
-import { EXPENSES, Income } from "@/app/data";
-import { redirect } from "next/navigation";
+import { Card } from "@tremor/react";
 
-import { createClient } from "@/lib/supabase/server";
-import TableTabs from "./_components/TableTabs";
+import { redirect } from "next/navigation";
+import { getUser } from "@/services/user";
+import { ExpenseTable, IncomeTable } from "./_components/Tables";
+import { getIncome } from "@/services/income";
+import { getExpenses } from "@/services/expenses";
 
 export default async function BudgetPage() {
-  const fixedExpenses = EXPENSES.filter((e) => e.type === "Fixed");
-  const variableExpenses = EXPENSES.filter((e) => e.type === "Variable");
+  const user = await getUser();
+  if (!user) return redirect("/login");
 
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return redirect("/login");
-  }
-
-  const { data: income } = await supabase
-    .from<string, Income>("income")
-    .select("*")
-    .eq("user_id", user?.id);
+  const income = await getIncome(user.id);
+  const expenses = await getExpenses(user.id);
 
   return (
-    <div className="grid grid-cols-12 gap-8">
-      <HeaderCards />
-
-      <Card className="col-span-12  lg:col-span-8">
-        <TableTabs />
+    <div className="grid grid-cols-12 gap-4">
+      <Card className="col-span-12 lg:col-span-8  ">
+        <IncomeTable userId={user.id} income={income} />
       </Card>
 
-      <Card className="col-span-12  lg:col-span-4">
-        <ExpenseChart />
+      <Card className="col-span-12 lg:col-span-8 ">
+        <ExpenseTable userId={user.id} expenses={expenses} />
       </Card>
     </div>
   );

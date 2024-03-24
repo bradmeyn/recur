@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "@/app/globals.css";
 import Header from "../(dashboard)/_components/Header";
 import Navbar from "../(dashboard)/_components/Navbar";
+import { Tab } from "@tremor/react";
+import TabLinks from "@/components/TabLinks";
 
 export const metadata: Metadata = {
   title: "Supabudget | Dashboard",
@@ -23,6 +25,7 @@ export default async function DashboardLayout({
 
           <div className="w-full sm:p-10 max-w-[1200px]">
             <Header />
+
             <main className="flex-1 bg-tremor-background-muted rounded-lg ">
               {children}
             </main>

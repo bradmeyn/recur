@@ -1,7 +1,6 @@
 "use client";
 
 import { Card, ProgressCircle } from "@tremor/react";
-import ProjectedSavings from "./_components/ProjectedSavings";
 
 export default function DashboardPage() {
   return (
@@ -34,10 +33,6 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-12 gap-4 mb-4">
-        <Card className="col-span-12 md:col-span-7">
-          <ProjectedSavings />
-        </Card>
-
         <Card className="col-span-12 md:col-span-5">
           <h2>Expense Overview</h2>
         </Card>
