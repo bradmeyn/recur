@@ -1,7 +1,7 @@
 "use client";
 
 import { DonutChart, Card, Legend } from "@tremor/react";
-import { formatAsCurrency } from "../../../../../../utils";
+import { formatAsCurrency } from "../../../../../lib/utils";
 
 type formattedSubscription = {
   name: string;

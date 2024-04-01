@@ -3,7 +3,7 @@
 import { RiMoneyDollarCircleFill } from "@remixicon/react";
 import { Select, SelectItem, TextInput } from "@tremor/react";
 import { Controller } from "react-hook-form";
-import { formatAsCurrency, parseCurrency } from "../../utils";
+import { formatAsCurrency, parseCurrency } from "../lib/utils";
 
 type SelectInputProps = {
   label: string;

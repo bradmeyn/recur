@@ -39,9 +39,10 @@ export function AddIncome({ userId }: { userId: string }) {
     // Validate the form
     trigger();
     if (!isValid) {
+      console.log("Form is invalid");
+      console.log(errors);
       return;
     }
-
     const formData = new FormData();
     formData.append("name", getValues("name"));
     formData.append("amount", getValues("amount"));
@@ -51,7 +52,7 @@ export function AddIncome({ userId }: { userId: string }) {
 
     // Call the server action
     const result = await addIncomeAction(formData);
-
+    console.log(result);
     handleClose();
   };
 

@@ -31,6 +31,11 @@ export default function Navbar() {
       href: "/dashboard/balance-sheet",
       Icon: RiPieChartLine,
     },
+    {
+      name: "Insurances",
+      href: "/dashboard/insurances",
+      Icon: RiCoinLine,
+    },
   ];
 
   return (
@@ -51,7 +56,6 @@ export default function Navbar() {
             Icon={link.Icon}
           />
         ))}
-
         <Divider />
         <form action={logoutAction}>
           <button className="font-semibold text-white flex gap-4 items-center hover:text-indigo-300">
@@ -72,7 +76,8 @@ type NavbarLinkProps = {
 
 function NavbarLink({ name, href, Icon }: NavbarLinkProps) {
   const currentPath = usePathname();
-  const isActive = currentPath === href;
+  const dashboardSection = currentPath.split("/")[2];
+  const isActive = href.split("/")[2] === dashboardSection;
   const activeClasses =
     "bg-tremor-brand text-slate-100 rounded-lg text-white hover:text-white ";
   const inactiveClasses = "text-slate-100 hover:text-indigo-300";

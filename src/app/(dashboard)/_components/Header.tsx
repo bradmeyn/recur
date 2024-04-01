@@ -1,12 +1,30 @@
+"use client";
+import { usePathname } from "next/navigation";
+
 export default function Header() {
-  // const page = usePathname();
-  // const pageName =
-  //   page.split("/")?.pop()?.charAt(0)?.toUpperCase() +
-  //   page.split("/")?.pop()?.slice(1);
+  const page = usePathname().split("/").pop();
+
+  let pageName = "";
+  switch (page) {
+    case "budget":
+      pageName = "Budget";
+      break;
+    case "subscriptions":
+      pageName = "Subscriptions";
+      break;
+    case "balance-sheet":
+      pageName = "Balance Sheet";
+      break;
+    case "insurances":
+      pageName = "Insurances";
+      break;
+    default:
+      pageName = "Dashboard";
+  }
 
   return (
     <header className="w-full flex justify-between items-center">
-      <h1 className=" mb-2">Dashboard</h1>
+      <h1>{pageName}</h1>
     </header>
   );
 }

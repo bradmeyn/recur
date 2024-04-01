@@ -10,7 +10,7 @@ import {
 } from "@tremor/react";
 
 import { type Subscription } from "@/app/data";
-import { formatAsCurrency } from "../../../../../../utils";
+import { formatAsCurrency } from "../../../../../lib/utils";
 import SubscriptionAdd from "./SubscriptionAdd";
 
 export default function SubscriptionTable({

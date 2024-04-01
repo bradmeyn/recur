@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 
+import TabLinks from "@/components/TabLinks";
+
 export const metadata: Metadata = {
-  title: "Supabudget | Budget",
+  title: "Supabudget | Balance Sheet",
   description: "Your budget overview.",
 };
 
