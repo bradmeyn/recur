@@ -1,4 +1,4 @@
-import { Expense, Income, Savings } from "@/types/data";
+import { Expense, Income, Savings, Frequency } from "@/types/data";
 
 export function formatAsCurrency(
   value: number,
@@ -56,6 +56,60 @@ export type CategoryTotal = {
   total: number;
 };
 
+export function frequencyTotal(
+  valueFrequency: Frequency,
+  displayFrequency: Frequency = "annually",
+  value: number
+): number {
+  // Convert the value to an annual amount first.
+  let annualValue: number;
+  switch (valueFrequency) {
+    case "daily":
+      annualValue = value * 365;
+      break;
+    case "weekly":
+      annualValue = value * 52;
+      break;
+    case "fortnightly":
+      annualValue = value * 26;
+      break;
+    case "monthly":
+      annualValue = value * 12;
+      break;
+    case "quarterly":
+      annualValue = value * 4;
+      break;
+    case "half-yearly":
+      annualValue = value * 2;
+      break;
+    case "annually":
+      annualValue = value;
+      break;
+    default:
+      throw new Error("Invalid value frequency");
+  }
+
+  // Convert the annual value to the display frequency.
+  switch (displayFrequency) {
+    case "daily":
+      return annualValue / 365;
+    case "weekly":
+      return annualValue / 52;
+    case "fortnightly":
+      return annualValue / 26;
+    case "monthly":
+      return annualValue / 12;
+    case "quarterly":
+      return annualValue / 4;
+    case "half-yearly":
+      return annualValue / 2;
+    case "annually":
+      return annualValue;
+    default:
+      throw new Error("Invalid display frequency");
+  }
+}
+
 export function consolidateCategoryData(
   data: Income[] | Expense[] | Savings[]
 ) {
@@ -83,4 +137,8 @@ export function consolidateCategoryData(
   );
 
   return result;
+}
+
+export function capitalise(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }

@@ -9,10 +9,20 @@ import {
   TableFooterCell,
 } from "@tremor/react";
 
-import { formatAsCurrency } from "@/lib/utils";
+import { formatAsCurrency, frequencyTotal, capitalise } from "@/lib/utils";
 import { type Income, type Expense, type Savings } from "@/types/data";
+import { useContext } from "react";
+import { FrequencyContext } from "../_context/FrequencyContext";
 
 export function IncomeTable({ income }: { income: Income[] }) {
+  const frequency = useContext(FrequencyContext);
+
+  const frequencyTotals = income.map((i) =>
+    frequencyTotal(i.frequency, frequency, i.amount)
+  );
+
+  const total = frequencyTotals.reduce((acc, curr) => acc + curr, 0);
+
   return (
     <>
       <div className="flex items-center justify-between mb-6">
@@ -37,8 +47,12 @@ export function IncomeTable({ income }: { income: Income[] }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {income.map((income) => (
-            <IncomeItem key={income.id} income={income} />
+          {income.map((income, i) => (
+            <IncomeItem
+              key={income.id}
+              income={income}
+              total={frequencyTotals[i]}
+            />
           ))}
         </TableBody>
         <TableFoot>
@@ -49,7 +63,9 @@ export function IncomeTable({ income }: { income: Income[] }) {
             <TableFooterCell></TableFooterCell>
             <TableFooterCell></TableFooterCell>
             <TableFooterCell></TableFooterCell>
-            <TableFooterCell className="text-lg text-tremor-content-strong"></TableFooterCell>
+            <TableFooterCell className="text-lg text-tremor-content-strong">
+              {formatAsCurrency(total, false, true)}
+            </TableFooterCell>
           </TableRow>
         </TableFoot>
       </Table>
@@ -57,17 +73,19 @@ export function IncomeTable({ income }: { income: Income[] }) {
   );
 }
 
-function IncomeItem({ income }: { income: Income }) {
+function IncomeItem({ income, total }: { income: Income; total: number }) {
+  const frequency = useContext(FrequencyContext);
+
   return (
     <TableRow key={income.id}>
       <TableCell className="font-semibold text-tremor-content-strong text-md">
         {income.name}
       </TableCell>
-      <TableCell>{formatAsCurrency(income.amount)}</TableCell>
+      <TableCell>{formatAsCurrency(income.amount, false, true)}</TableCell>
       <TableCell>{income.frequency}</TableCell>
       <TableCell>{income.category}</TableCell>
-      <TableCell className=" font-semibold text-right">
-        {/* {formatAsCurrency(total)} */}
+      <TableCell className=" font-semibold ">
+        {formatAsCurrency(total, false, true)}
       </TableCell>
     </TableRow>
   );

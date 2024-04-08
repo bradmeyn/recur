@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, createContext, useContext } from "react";
 
 import {
   TabGroup,
@@ -12,11 +12,17 @@ import {
   SelectItem,
 } from "@tremor/react";
 
-import { type Income, type Expense, type Savings } from "@/types/data";
+import {
+  type Income,
+  type Expense,
+  type Savings,
+  Frequency,
+} from "@/types/data";
 import { IncomeTable, ExpensesTable, SavingsTable } from "./Tables";
 import { CategoriesChart } from "./Charts";
 import { FREQUENCY_OPTIONS } from "@/lib/constants";
 import { RiCalendarLine } from "@remixicon/react";
+import { FrequencyContext } from "../_context/FrequencyContext";
 
 export function BudgetTabs({
   income,
@@ -28,7 +34,10 @@ export function BudgetTabs({
   savings: Savings[];
   userId: string;
 }) {
-  const [frequency, setFreuqency] = useState(FREQUENCY_OPTIONS[0].value);
+  const [frequency, setFrequency] = useState<Frequency>(
+    FREQUENCY_OPTIONS[6].value
+  );
+
   return (
     <div>
       <TabGroup className="col-span-12">
@@ -40,11 +49,13 @@ export function BudgetTabs({
         <Select
           icon={RiCalendarLine}
           className="w-[100px] mt-5"
-          placeholder="frequency"
+          //@ts-ignore
+          value={frequency}
+          onValueChange={setFrequency}
         >
           {FREQUENCY_OPTIONS.map((option) =>
             option.value === frequency ? (
-              <SelectItem key={option.value} value={option.value} selected>
+              <SelectItem key={option.value} value={option.value}>
                 {option.label}
               </SelectItem>
             ) : (
@@ -54,17 +65,19 @@ export function BudgetTabs({
             )
           )}
         </Select>
-        <TabPanels>
-          <TabPanel>
-            <IncomePanel income={income} />
-          </TabPanel>
-          <TabPanel>
-            <ExpensesPanel expenses={expenses} />
-          </TabPanel>
-          <TabPanel>
-            <SavingsPanel savings={savings} />
-          </TabPanel>
-        </TabPanels>
+        <FrequencyContext.Provider value={frequency}>
+          <TabPanels>
+            <TabPanel>
+              <IncomePanel income={income} />
+            </TabPanel>
+            <TabPanel>
+              <ExpensesPanel expenses={expenses} />
+            </TabPanel>
+            <TabPanel>
+              <SavingsPanel savings={savings} />
+            </TabPanel>
+          </TabPanels>
+        </FrequencyContext.Provider>
       </TabGroup>
     </div>
   );
