@@ -1,7 +1,7 @@
 "use server";
-import { redirect } from "next/navigation";
 import { addIncome } from "@/services/income";
 import { IncomeSchema, type Frequency } from "@/lib/schema";
+import { revalidatePath } from "next/cache";
 
 export async function addIncomeAction(formData: FormData) {
   console.log("Adding income...");
@@ -30,4 +30,5 @@ export async function addIncomeAction(formData: FormData) {
   });
 
   console.log(result);
+  revalidatePath("/dashboard/budget");
 }

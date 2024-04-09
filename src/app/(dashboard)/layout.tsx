@@ -21,7 +21,7 @@ export default async function DashboardLayout({
             <Navbar />
           </aside>
 
-          <div className="w-full sm:p-10 max-w-[1200px]">
+          <div className="w-full sm:p-8 max-w-[1200px]">
             <Header />
             <main className="flex-1 bg-tremor-background-muted rounded-lg ">
               {children}

@@ -12,9 +12,13 @@ export async function updateExpense(expense: TablesUpdate<"expenses">) {
   return supabase.from("expenses").update(expense);
 }
 
-export async function deleteExpense(expenseId: string) {
+export async function deleteExpense(expenseId: string, userId: string) {
   const supabase = createClient();
-  return supabase.from("expenses").delete().eq("id", expenseId);
+  return supabase
+    .from("expenses")
+    .delete()
+    .eq("id", expenseId)
+    .eq("user_id", userId);
 }
 
 export async function getExpenses(userId: string): Promise<Expense[]> {

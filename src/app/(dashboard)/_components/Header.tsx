@@ -23,7 +23,7 @@ export default function Header() {
   }
 
   return (
-    <header className="w-full flex justify-between items-center">
+    <header className="w-full flex justify-between items-center mb-4">
       <h1>{pageName}</h1>
     </header>
   );

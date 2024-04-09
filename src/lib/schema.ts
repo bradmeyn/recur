@@ -17,7 +17,6 @@ export const IncomeSchema = z.object({
   amount: z.number({ required_error: "Amount is required" }).positive(),
   frequency: z.enum(frequencyValues),
   category: z.string({ required_error: "Category is required" }),
-  userId: z.string(),
 });
 
 export const ExpenseSchema = z.object({

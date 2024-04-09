@@ -9,24 +9,35 @@ import {
   TableFooterCell,
 } from "@tremor/react";
 
-import { formatAsCurrency, frequencyTotal, capitalise } from "@/lib/utils";
-import { type Income, type Expense, type Savings } from "@/types/data";
+import { formatAsCurrency, frequencyTotal } from "@/lib/utils";
+import {
+  type Income,
+  type Expense,
+  type Savings,
+  type IncomeWithTotal,
+  type ExpenseWithTotal,
+  type SavingsWithTotal,
+} from "@/types/data";
 import { useContext } from "react";
 import { FrequencyContext } from "../_context/FrequencyContext";
+import { AddExpense, AddIncome } from "./AddItems";
+import { RiPencilLine, RiDeleteBinLine } from "@remixicon/react";
+import { DeleteItem } from "./DeleteItem";
 
-export function IncomeTable({ income }: { income: Income[] }) {
+export function IncomeTable({
+  income,
+  total,
+}: {
+  income: IncomeWithTotal[];
+  total: number;
+}) {
   const frequency = useContext(FrequencyContext);
-
-  const frequencyTotals = income.map((i) =>
-    frequencyTotal(i.frequency, frequency, i.amount)
-  );
-
-  const total = frequencyTotals.reduce((acc, curr) => acc + curr, 0);
 
   return (
     <>
       <div className="flex items-center justify-between mb-6">
         <h2>Income</h2>
+        <AddIncome />
       </div>
       <Table>
         <TableHead>
@@ -48,11 +59,7 @@ export function IncomeTable({ income }: { income: Income[] }) {
         </TableHead>
         <TableBody>
           {income.map((income, i) => (
-            <IncomeItem
-              key={income.id}
-              income={income}
-              total={frequencyTotals[i]}
-            />
+            <IncomeItem key={income.id} income={income} />
           ))}
         </TableBody>
         <TableFoot>
@@ -73,7 +80,7 @@ export function IncomeTable({ income }: { income: Income[] }) {
   );
 }
 
-function IncomeItem({ income, total }: { income: Income; total: number }) {
+function IncomeItem({ income }: { income: IncomeWithTotal }) {
   const frequency = useContext(FrequencyContext);
 
   return (
@@ -85,17 +92,38 @@ function IncomeItem({ income, total }: { income: Income; total: number }) {
       <TableCell>{income.frequency}</TableCell>
       <TableCell>{income.category}</TableCell>
       <TableCell className=" font-semibold ">
-        {formatAsCurrency(total, false, true)}
+        {formatAsCurrency(income.total, false, true)}
+      </TableCell>
+      <TableCell className="flex gap-2">
+        <button className="hover:text-tremor-brand p-2 hover:bg-slate-200 rounded">
+          <RiPencilLine size={20} />
+        </button>
+
+        <DeleteItem id={income.id} type="income" />
       </TableCell>
     </TableRow>
   );
 }
 
-export function ExpensesTable({ expenses }: { expenses: Expense[] }) {
+export function ExpensesTable({
+  expenses,
+  total,
+}: {
+  expenses: Expense[];
+  total: number;
+}) {
+  const frequency = useContext(FrequencyContext);
+
+  const totalledExpenses = expenses.map((expense) => ({
+    ...expense,
+    total: frequencyTotal(expense.frequency, frequency, expense.amount),
+  }));
+
   return (
     <>
       <div className="flex items-center justify-between mb-6">
         <h2>Expenses</h2>
+        <AddExpense />
       </div>
       <Table>
         <TableHead>
@@ -116,8 +144,8 @@ export function ExpensesTable({ expenses }: { expenses: Expense[] }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {expenses.map((e) => (
-            <ExpenseItem key={e.id} expense={e} />
+          {totalledExpenses.map((expense) => (
+            <ExpenseItem key={expense.id} expense={expense} />
           ))}
         </TableBody>
         <TableFoot>
@@ -128,7 +156,9 @@ export function ExpensesTable({ expenses }: { expenses: Expense[] }) {
             <TableFooterCell></TableFooterCell>
             <TableFooterCell></TableFooterCell>
             <TableFooterCell></TableFooterCell>
-            <TableFooterCell className="text-lg text-tremor-content-strong"></TableFooterCell>
+            <TableFooterCell className="text-lg text-tremor-content-strong">
+              {formatAsCurrency(total, false, true)}
+            </TableFooterCell>
           </TableRow>
         </TableFoot>
       </Table>
@@ -136,60 +166,61 @@ export function ExpensesTable({ expenses }: { expenses: Expense[] }) {
   );
 }
 
-function ExpenseItem({ expense }: { expense: Expense }) {
+function ExpenseItem({ expense }: { expense: ExpenseWithTotal }) {
   return (
-    <TableRow key={expense.id}>
-      <TableCell className="font-medium text-tremor-content-strong">
+    <TableRow>
+      <TableCell className="font-semibold text-tremor-content-strong text-md">
         {expense.name}
       </TableCell>
-      <TableCell>{formatAsCurrency(expense.amount)}</TableCell>
+      <TableCell>{formatAsCurrency(expense.amount, false, true)}</TableCell>
       <TableCell>{expense.frequency}</TableCell>
       <TableCell>{expense.category}</TableCell>
-      <TableCell className=" font-semibold text-right">
-        {/* {formatAsCurrency(total)} */}
+      <TableCell className=" font-semibold">
+        {formatAsCurrency(expense.total, false, true)}
+      </TableCell>
+      <TableCell className="flex gap-4">
+        <button className="hover:text-tremor-brand p-2 hover:bg-slate-200 rounded">
+          <RiPencilLine size={20} />
+        </button>
+
+        <DeleteItem id={expense.id} type="expense" />
       </TableCell>
     </TableRow>
   );
 }
 
-export function SavingsTable({ savings }: { savings: Savings[] }) {
+export function SavingsTable({
+  savings,
+  total,
+}: {
+  savings: Savings[];
+  total: number;
+}) {
+  const frequency = useContext(FrequencyContext);
+
+  const totalledSavings = savings.map((saving) => ({
+    ...saving,
+    total: frequencyTotal(saving.frequency, frequency, saving.amount),
+  }));
+
   return (
     <>
       <div className="flex items-center justify-between mb-6">
         <h2>Savings</h2>
       </div>
       <Table>
-        <TableHead>
-          <TableRow className="border-b border-tremor-border dark:border-dark-tremor-border">
-            <TableHeaderCell className="text-tremor-content-strong">
-              Detail
-            </TableHeaderCell>
-            <TableHeaderCell className="text-tremor-content-strong">
-              Amount
-            </TableHeaderCell>
-            <TableHeaderCell className="text-tremor-content-strong">
-              Frequency
-            </TableHeaderCell>
-            <TableHeaderCell className="text-tremor-content-strong">
-              Category
-            </TableHeaderCell>
-            <TableHeaderCell>Total</TableHeaderCell>
-          </TableRow>
-        </TableHead>
+        <TableHead>{/* TableHeaderCells */}</TableHead>
         <TableBody>
-          {savings.map((s) => (
-            <SavingsItem key={s.id} saving={s} />
+          {totalledSavings.map((saving) => (
+            <SavingsItem key={saving.id} saving={saving} />
           ))}
         </TableBody>
         <TableFoot>
           <TableRow>
-            <TableFooterCell className=" font-bold text-tremor-content-strong">
-              Total
+            {/* TableFooterCells for column labels */}
+            <TableFooterCell className="text-lg text-tremor-content-strong">
+              {formatAsCurrency(total, false, true)}
             </TableFooterCell>
-            <TableFooterCell></TableFooterCell>
-            <TableFooterCell></TableFooterCell>
-            <TableFooterCell></TableFooterCell>
-            <TableFooterCell className="text-lg text-tremor-content-strong"></TableFooterCell>
           </TableRow>
         </TableFoot>
       </Table>
@@ -197,17 +228,12 @@ export function SavingsTable({ savings }: { savings: Savings[] }) {
   );
 }
 
-function SavingsItem({ saving }: { saving: Savings }) {
+function SavingsItem({ saving }: { saving: SavingsWithTotal }) {
   return (
-    <TableRow key={saving.id}>
-      <TableCell className="font-medium text-tremor-content-strong">
-        {saving.name}
-      </TableCell>
-      <TableCell>{formatAsCurrency(saving.amount)}</TableCell>
-      <TableCell>{saving.frequency}</TableCell>
-      <TableCell>{saving.category}</TableCell>
+    <TableRow>
+      {/* TableCell contents for each saving detail */}
       <TableCell className=" font-semibold text-right">
-        {/* {formatAsCurrency(total)} */}
+        {formatAsCurrency(saving.total, false, true)}
       </TableCell>
     </TableRow>
   );

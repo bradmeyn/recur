@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CurrencyInput, Input, SelectInput } from "@/components/Inputs";
 import { addIncomeAction } from "@/actions/income";
+import { addExpenseAction } from "@/actions/expense";
 import Modal from "@/components/Modal";
 import useModal from "@/hooks/useModal";
 import {
@@ -13,9 +14,12 @@ import {
   INCOME_CATEGORY_OPTIONS,
 } from "@/lib/constants";
 import { Button } from "@tremor/react";
+import useSupabase from "@/hooks/useSupabase";
 
-export function AddIncome({ userId }: { userId: string }) {
+export function AddIncome() {
   const { isOpen, openModal, closeModal } = useModal();
+
+  const { user, loading } = useSupabase();
 
   const {
     register,
@@ -31,7 +35,6 @@ export function AddIncome({ userId }: { userId: string }) {
       amount: "",
       frequency: "",
       category: "",
-      userId: userId,
     },
   });
 
@@ -39,6 +42,8 @@ export function AddIncome({ userId }: { userId: string }) {
     // Validate the form
     trigger();
     if (!isValid) {
+      console.log("Form is invalid");
+      console.log(errors);
       return;
     }
 
@@ -47,7 +52,7 @@ export function AddIncome({ userId }: { userId: string }) {
     formData.append("amount", getValues("amount"));
     formData.append("frequency", getValues("frequency"));
     formData.append("category", getValues("category"));
-    formData.append("userId", userId);
+    formData.append("userId", user!.id);
 
     // Call the server action
     const result = await addIncomeAction(formData);
@@ -62,9 +67,7 @@ export function AddIncome({ userId }: { userId: string }) {
 
   return (
     <>
-      <Button className="w-full sm:w-fit block" onClick={openModal}>
-        Add
-      </Button>
+      <Button onClick={openModal}>Add Income</Button>
 
       <Modal isOpen={isOpen} close={handleClose} title="Add Income">
         <form action={addIncome}>
@@ -119,8 +122,10 @@ export function AddIncome({ userId }: { userId: string }) {
   );
 }
 
-export function AddExpense({ userId }: { userId: string }) {
+export function AddExpense() {
   const { isOpen, openModal, closeModal } = useModal();
+
+  const { user, loading } = useSupabase();
 
   const {
     register,
@@ -136,7 +141,6 @@ export function AddExpense({ userId }: { userId: string }) {
       amount: "",
       frequency: "",
       category: "",
-      userId: userId,
     },
   });
 
@@ -153,12 +157,12 @@ export function AddExpense({ userId }: { userId: string }) {
     formData.append("amount", getValues("amount"));
     formData.append("frequency", getValues("frequency"));
     formData.append("category", getValues("category"));
-    formData.append("userId", userId);
+    formData.append("userId", user!.id);
 
     alert("Adding expense...");
 
     // Call the server action
-    const result = await addIncomeAction(formData);
+    const result = await addExpenseAction(formData);
     console.log(result);
     handleClose();
   };
@@ -171,7 +175,7 @@ export function AddExpense({ userId }: { userId: string }) {
   return (
     <>
       <Button className="w-full sm:w-fit block" onClick={openModal}>
-        Add
+        Add Expense
       </Button>
 
       <Modal isOpen={isOpen} close={handleClose} title="Add Expense">
