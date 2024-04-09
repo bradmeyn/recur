@@ -7,9 +7,17 @@ export async function addIncome(income: TablesInsert<"income">) {
   return supabase.from("income").insert(income);
 }
 
-export async function updateIncome(income: TablesUpdate<"income">) {
+export async function updateIncome(
+  income: TablesUpdate<"income">,
+  incomeId: string,
+  userId: string
+) {
   const supabase = createClient();
-  return supabase.from("income").update(income);
+  return supabase
+    .from("income")
+    .update(income)
+    .eq("id", incomeId)
+    .eq("user_id", userId);
 }
 
 export async function deleteIncome(incomeId: string, userId: string) {
@@ -23,14 +31,11 @@ export async function deleteIncome(incomeId: string, userId: string) {
 
 export async function getIncome(userId: string): Promise<Income[]> {
   const supabase = createClient();
-  console.log("Getting all income by user id");
   // Perform the query
   const { data, error } = await supabase
     .from("income")
     .select("*")
     .eq("user_id", userId);
-
-  console.log("data", data);
 
   // Handle potential error
   if (error) {

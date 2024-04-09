@@ -23,6 +23,7 @@ import { FrequencyContext } from "../_context/FrequencyContext";
 import { AddExpense, AddIncome } from "./AddItems";
 import { RiPencilLine, RiDeleteBinLine } from "@remixicon/react";
 import { DeleteItem } from "./DeleteItem";
+import { EditIncome } from "./EditItems";
 
 export function IncomeTable({
   income,
@@ -95,9 +96,7 @@ function IncomeItem({ income }: { income: IncomeWithTotal }) {
         {formatAsCurrency(income.total, false, true)}
       </TableCell>
       <TableCell className="flex gap-2">
-        <button className="hover:text-tremor-brand p-2 hover:bg-slate-200 rounded">
-          <RiPencilLine size={20} />
-        </button>
+        <EditIncome income={income} />
 
         <DeleteItem id={income.id} type="income" />
       </TableCell>
