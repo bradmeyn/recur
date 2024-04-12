@@ -13,10 +13,14 @@ const frequencyValues = [
 export type Frequency = (typeof frequencyValues)[number];
 
 export const IncomeSchema = z.object({
-  name: z.string({ required_error: "Name is required" }),
-  amount: z.number({ required_error: "Amount is required" }).positive(),
-  frequency: z.enum(frequencyValues),
-  category: z.string({ required_error: "Category is required" }),
+  name: z.string().min(1, { message: "Name is required" }),
+  amount: z
+    .number({ required_error: "Amount is required" })
+    .positive({ message: "Amount must be positive" }),
+  frequency: z.enum(frequencyValues, {
+    required_error: "Frequency is required",
+  }),
+  category: z.string().min(1, { message: "Category is required" }),
 });
 
 export const ExpenseSchema = z.object({

@@ -16,10 +16,12 @@ import {
 import { Button } from "@tremor/react";
 import useSupabase from "@/hooks/useSupabase";
 
+import { useFormState } from "react-dom";
+
 export function AddIncome() {
   const { isOpen, openModal, closeModal } = useModal();
 
-  const { user, loading } = useSupabase();
+  const { user } = useSupabase();
 
   const {
     register,
@@ -32,7 +34,7 @@ export function AddIncome() {
     resolver: zodResolver(IncomeSchema),
     defaultValues: {
       name: "",
-      amount: "",
+      amount: "0",
       frequency: "",
       category: "",
     },
@@ -42,8 +44,6 @@ export function AddIncome() {
     // Validate the form
     trigger();
     if (!isValid) {
-      console.log("Form is invalid");
-      console.log(errors);
       return;
     }
 
@@ -98,7 +98,7 @@ export function AddIncome() {
                 id="frequency"
                 options={FREQUENCY_OPTIONS}
                 control={control}
-                error={errors?.category?.message?.toString()}
+                error={errors?.frequency?.message?.toString()}
               />
             </div>
 

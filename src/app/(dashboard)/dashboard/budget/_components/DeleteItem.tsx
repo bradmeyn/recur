@@ -42,7 +42,7 @@ export function DeleteItem({ id, type }: Props) {
           <p>Are you sure you want to delete this item?</p>
           <div className="flex gap-4 mt-10">
             <Button
-              className="bg-red-500 hover:bg-red-700 border-transparent  border"
+              className="bg-red-500 hover:bg-red-700 border-transparent hover:border-transparent"
               type="submit"
             >
               Delete
@@ -50,7 +50,7 @@ export function DeleteItem({ id, type }: Props) {
 
             <Button
               onClick={handleClose}
-              className="bg-slate-400 hover:bg-slate-600 border-transparent border"
+              className="bg-slate-500 hover:bg-slate-600 border-transparent hover:border-transparent"
             >
               Cancel
             </Button>
