@@ -15,8 +15,8 @@ export default async function Header() {
         href={"/"}
         className="text-slate-900 font-bold flex items-center gap-1 "
       >
-        <Image src="./logo.svg" alt="Supabudget Logo" width={40} height={40} />
-        <span className="text-xl">Supabudget</span>
+        <Image src="./logo.svg" alt="Recur Logo" width={40} height={40} />
+        <span className="text-xl">Recur</span>
       </Link>
 
       {user ? <AuthenticatedLinks /> : <UnauthenticatedLinks />}

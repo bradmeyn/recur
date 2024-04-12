@@ -1,21 +1,23 @@
 "use client";
 
-import { IncomeSchema } from "@/lib/schema";
+import { IncomeSchema, ExpenseSchema, SavingsSchema } from "@/lib/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CurrencyInput, Input, SelectInput } from "@/components/Inputs";
-import { RiPencilLine } from "@remixicon/react";
-import { updateIncomeAction } from "@/actions/income";
-import Modal from "@/components/Modal";
-import useModal from "@/hooks/useModal";
-import { FREQUENCY_OPTIONS, INCOME_CATEGORY_OPTIONS } from "@/lib/constants";
+import { CurrencyInput, Input, SelectInput } from "@/lib/components/Inputs";
+import { addIncomeAction } from "@/lib/actions/income";
+import { addExpenseAction } from "@/lib/actions/expense";
+import Modal from "@/lib/components/Modal";
+import useModal from "@/lib/hooks/useModal";
+import { CATEGORY_OPTIONS, FREQUENCY_OPTIONS } from "@/lib/constants";
 import { Button } from "@tremor/react";
-import useSupabase from "@/hooks/useSupabase";
-import { IncomeWithTotal } from "@/types/data";
+import useSupabase from "@/lib/hooks/useSupabase";
 
-export function EditIncome({ income }: { income: IncomeWithTotal }) {
+import { useFormState } from "react-dom";
+
+export default function SubscriptionAdd() {
   const { isOpen, openModal, closeModal } = useModal();
-  const { user, loading } = useSupabase();
+
+  const { user } = useSupabase();
 
   const {
     register,
@@ -27,10 +29,10 @@ export function EditIncome({ income }: { income: IncomeWithTotal }) {
   } = useForm({
     resolver: zodResolver(IncomeSchema),
     defaultValues: {
-      name: income.name,
-      amount: income.amount || 0,
-      frequency: income.frequency,
-      category: income.category || "",
+      name: "",
+      amount: "0",
+      frequency: "",
+      category: "",
     },
   });
 
@@ -38,13 +40,10 @@ export function EditIncome({ income }: { income: IncomeWithTotal }) {
     // Validate the form
     trigger();
     if (!isValid) {
-      console.log("Form is invalid");
-      console.log(errors);
       return;
     }
 
     const formData = new FormData();
-    formData.append("incomeId", income.id);
     formData.append("name", getValues("name"));
     formData.append("amount", getValues("amount"));
     formData.append("frequency", getValues("frequency"));
@@ -52,7 +51,7 @@ export function EditIncome({ income }: { income: IncomeWithTotal }) {
     formData.append("userId", user!.id);
 
     // Call the server action
-    const result = await updateIncomeAction(formData);
+    const result = await addIncomeAction(formData);
 
     handleClose();
   };
@@ -64,14 +63,9 @@ export function EditIncome({ income }: { income: IncomeWithTotal }) {
 
   return (
     <>
-      <button
-        className="hover:text-tremor-brand hover:bg-slate-200 p-2 rounded"
-        onClick={openModal}
-      >
-        <RiPencilLine size={20} />
-      </button>
+      <Button onClick={openModal}>Add</Button>
 
-      <Modal isOpen={isOpen} close={handleClose} title="Add Income">
+      <Modal isOpen={isOpen} close={handleClose} title="Add Subscription">
         <form action={addIncome}>
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-2">
@@ -100,7 +94,7 @@ export function EditIncome({ income }: { income: IncomeWithTotal }) {
                 id="frequency"
                 options={FREQUENCY_OPTIONS}
                 control={control}
-                error={errors?.category?.message?.toString()}
+                error={errors?.frequency?.message?.toString()}
               />
             </div>
 
@@ -108,7 +102,7 @@ export function EditIncome({ income }: { income: IncomeWithTotal }) {
               <SelectInput
                 label="Category"
                 id="category"
-                options={INCOME_CATEGORY_OPTIONS}
+                options={CATEGORY_OPTIONS}
                 control={control}
                 error={errors?.category?.message?.toString()}
               />
@@ -116,7 +110,7 @@ export function EditIncome({ income }: { income: IncomeWithTotal }) {
           </div>
 
           <Button className="mt-14" type="submit">
-            Update
+            Add income
           </Button>
         </form>
       </Modal>

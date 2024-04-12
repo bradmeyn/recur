@@ -6,14 +6,13 @@ export default function Home() {
     <>
       <main className="flex-1 container">
         <section className="py-12">
-          <div className="mb-4 text-center w-full">
-            <h1 className="text-slate-800 text-8xl font-semibold mb-4 max-w-[800px] mx-auto">
-              <div>Super-powered</div> <div>finance dashboard</div>
+          <div className="mb-4 text-center w-full mt-8">
+            <h1 className="text-slate-800 text-8xl font-semibold mb-6  mx-auto">
+              Track your subscriptions
             </h1>
             <p className="text-slate-700 text-xl max-w-[600px] mb-8 mx-auto">
-              Supabudget is a personal finance dashboard designed to help you
-              save money. Build budgets, track subscriptions and gain a better
-              understanding over where your money is going.
+              Recur helps you keep track of your subscriptions and recurring
+              payments. Never forget to cancel a subscription again.
             </p>
 
             <Link
@@ -28,8 +27,6 @@ export default function Home() {
         <section className="py-12">
           <Dashboard />
         </section>
-
-        <section className="py-12"></section>
       </main>
     </>
   );

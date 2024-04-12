@@ -4,7 +4,7 @@ import { GitHubButton, GoogleButton } from "../_components/AuthButtons";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Input } from "@/components/Inputs";
+import { Input } from "@/lib/components/Inputs";
 import { loginAction } from "../actions";
 
 const schema = z.object({

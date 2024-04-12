@@ -1,19 +1,14 @@
 "use client";
 
-import Modal from "@/components/Modal";
-import useModal from "@/hooks/useModal";
+import Modal from "@/lib/components/Modal";
+import useModal from "@/lib/hooks/useModal";
 import { Button } from "@tremor/react";
-import useSupabase from "@/hooks/useSupabase";
+import useSupabase from "@/lib/hooks/useSupabase";
 import { RiDeleteBinLine } from "@remixicon/react";
-import { deleteItemAction } from "@/actions/delete";
+import { deleteItemAction } from "@/lib/actions/delete";
 import { capitalise } from "@/lib/utils";
 
-type Props = {
-  id: string;
-  type: "income" | "expense" | "savings";
-};
-
-export function DeleteItem({ id, type }: Props) {
+export default function DeleteSubscription({ id }: { id: string }) {
   const { isOpen, openModal, closeModal } = useModal();
   const { user, loading } = useSupabase();
 
@@ -30,15 +25,11 @@ export function DeleteItem({ id, type }: Props) {
         <RiDeleteBinLine size={20} />
       </button>
 
-      <Modal
-        isOpen={isOpen}
-        close={handleClose}
-        title={`Delete ${capitalise(type)}`}
-      >
+      <Modal isOpen={isOpen} close={handleClose} title={`Delete Subscription`}>
         <form action={deleteItemAction}>
           <input type="hidden" name="id" value={id} />
           <input type="hidden" name="userId" value={user?.id} />
-          <input type="hidden" name="type" value={type} />
+
           <p>Are you sure you want to delete this item?</p>
           <div className="flex gap-4 mt-10">
             <Button

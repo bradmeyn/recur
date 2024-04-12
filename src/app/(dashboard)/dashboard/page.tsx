@@ -1,50 +1,37 @@
-"use client";
+import { redirect } from "next/navigation";
+import { getUser } from "@/lib/services/user";
+import { getSubscriptions } from "@/lib/services/subscriptions";
+import SubscriptionAdd from "../_components/SubscriptionAdd";
 
-import { Card, ProgressCircle } from "@tremor/react";
+import { Card } from "@tremor/react";
+import SubscriptionPanel from "../_components/SubscriptionPanel";
+import { Subscription } from "@/lib/types/data";
 
-export default function DashboardPage() {
+export default async function SubscriptionPage() {
+  // const user = await getUser();
+  // if (!user) return redirect("/login");
+
+  const user = { id: "1" };
+
+  // const subscriptions = await getSubscriptions(user.id);
+
+  const subscriptions: Subscription[] = {
+    id: "1",
+    name: "Netflix",
+    amount: 10,
+    frequency: "monthly",
+    category: "Entertainment",
+    userId: "1",
+  };
+
   return (
-    <div>
-      <div className="grid grid-cols-12  gap-4 mb-4">
-        <Card className="col-span-12  lg:col-span-3">
-          <div className="flex gap-4">
-            <ProgressCircle value={50} />
-            <div>
-              <h2>Savings Rate</h2>
-              <p className="text-3xl font-semibold">40%</p>
-            </div>
-          </div>
-        </Card>
-
-        <Card className="col-span-12  lg:col-span-3">
-          <h2>Something</h2>
-          <p className="text-3xl font-semibold">$1,000</p>
-        </Card>
-
-        <Card className="col-span-12  lg:col-span-3">
-          <h2>Something</h2>
-          <p className="text-3xl font-semibold">$1,000</p>
-        </Card>
-
-        <Card className="col-span-12  lg:col-span-3">
-          <h2>Something</h2>
-          <p className="text-3xl font-semibold">$1,000</p>
-        </Card>
+    <div className="container ">
+      <div className="flex items-center justify-between">
+        <h1 className="my-4">Subscriptions</h1>
+        <SubscriptionAdd />
       </div>
-
-      <div className="grid grid-cols-12 gap-4 mb-4">
-        <Card className="col-span-12 md:col-span-5">
-          <h2>Expense Overview</h2>
-        </Card>
-      </div>
-
-      <div className="grid grid-cols-12  gap-4 ">
-        <Card className="col-span-12 md:col-span-6">
-          <h2>Networth</h2>
-        </Card>
-        <Card className="col-span-12 md:col-span-6">
-          <h2>Upcoming Payments</h2>
-        </Card>
+      <div>
+        <SubscriptionPanel subscriptions={subscriptions} />
       </div>
     </div>
   );

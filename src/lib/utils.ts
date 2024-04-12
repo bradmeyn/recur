@@ -1,4 +1,4 @@
-import { Expense, Income, Savings, Frequency } from "@/types/data";
+import { Expense, Income, Savings, Frequency } from "@/lib/types/data";
 
 export function formatAsCurrency(
   value: number,

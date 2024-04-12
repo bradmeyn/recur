@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Input } from "@/components/Inputs";
+import { Input } from "@/lib/components/Inputs";
 import { RiCheckFill, RiErrorWarningFill } from "@remixicon/react";
 import { useRef } from "react";
 import { useFormState } from "react-dom";

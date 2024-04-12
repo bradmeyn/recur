@@ -6,10 +6,7 @@ import {
   TableHeaderCell,
   TableBody,
   TableRow,
-  TableCell,
   Card,
-  DonutChart,
-  Legend,
 } from "@tremor/react";
 
 export default function Dashboard() {

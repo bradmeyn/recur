@@ -12,44 +12,7 @@ import {
 
 import { formatAsCurrency, formatAsPercentage } from "@/lib/utils";
 import { consolidateCategoryData } from "@/lib/utils";
-import { type Income, type Expense, type Savings } from "@/types/data";
-
-export function IncomeChart({ income }: { income: any }) {
-  const data = [
-    { name: "Income", value: 15730 },
-    { name: "Expenses", value: 4420 },
-    { name: "Savings", value: 3920 },
-  ];
-
-  const total = data.reduce((acc, item) => acc + item.value, 0);
-
-  return (
-    <div className="flex flex-col items-start gap-4">
-      <DonutChart
-        valueFormatter={formatAsCurrency}
-        data={data}
-        colors={["emerald", "rose", "sky"]}
-      />
-      <List className="w-full">
-        {data.map((item, index) => (
-          <ListItem key={index} className="flex justify-between w-full py-2">
-            <span className="flex items-center">
-              <span
-                className={`size-3 rounded inline-block mr-2 bg-indigo-400`}
-              />
-              {item.name}
-            </span>
-            <span>{formatAsCurrency(item.value, false, true)}</span>
-          </ListItem>
-        ))}
-        <ListItem className="flex justify-between w-full py-2 font-bold">
-          <span>Total</span>
-          <span>{formatAsCurrency(total, false, true)}</span>
-        </ListItem>
-      </List>
-    </div>
-  );
-}
+import { type Income, type Expense, type Savings } from "@/lib/types/data";
 
 export function CategoriesChart({
   data,
