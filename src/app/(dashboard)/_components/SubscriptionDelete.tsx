@@ -8,7 +8,7 @@ import { RiDeleteBinLine } from "@remixicon/react";
 import { deleteItemAction } from "@/lib/actions/delete";
 import { capitalise } from "@/lib/utils";
 
-export default function DeleteSubscription({ id }: { id: string }) {
+export default function SubscriptionDelete({ id }: { id: string }) {
   const { isOpen, openModal, closeModal } = useModal();
   const { user, loading } = useSupabase();
 

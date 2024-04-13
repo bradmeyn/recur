@@ -11,33 +11,28 @@ import {
 
 import { formatAsCurrency, frequencyTotal } from "@/lib/utils";
 import {
-  type Income,
-  type Expense,
-  type Savings,
-  type IncomeWithTotal,
-  type ExpenseWithTotal,
-  type SavingsWithTotal,
+  type Subscription,
+  type SubscriptionWithTotal,
 } from "@/lib/types/data";
 import { useContext } from "react";
 import { FrequencyContext } from "../_context/FrequencyContext";
-import { AddExpense, AddIncome } from "./SubscriptionAdd";
+import SubscriptionAdd from "./SubscriptionAdd";
+import SubscriptionEdit from "./SubscriptionEdit";
+import SubscriptionDelete from "./SubscriptionDelete";
 import { RiPencilLine, RiDeleteBinLine } from "@remixicon/react";
 
-export function IncomeTable({
-  income,
+export default function SubscriptionTable({
+  subscriptions,
   total,
 }: {
-  income: IncomeWithTotal[];
+  subscriptions: SubscriptionWithTotal[];
   total: number;
 }) {
   const frequency = useContext(FrequencyContext);
 
   return (
     <>
-      <div className="flex items-center justify-between mb-6">
-        <h2>Income</h2>
-        <AddIncome />
-      </div>
+      <div className="flex items-center justify-between mb-6"></div>
       <Table>
         <TableHead>
           <TableRow className="border-b border-tremor-border dark:border-dark-tremor-border">
@@ -57,8 +52,11 @@ export function IncomeTable({
           </TableRow>
         </TableHead>
         <TableBody>
-          {income.map((income, i) => (
-            <IncomeItem key={income.id} income={income} />
+          {subscriptions.map((subscription, i) => (
+            <SubscriptionItem
+              key={subscription.id}
+              subscription={subscription}
+            />
           ))}
         </TableBody>
         <TableFoot>
@@ -79,24 +77,30 @@ export function IncomeTable({
   );
 }
 
-function IncomeItem({ income }: { income: IncomeWithTotal }) {
+function SubscriptionItem({
+  subscription,
+}: {
+  subscription: SubscriptionWithTotal;
+}) {
   const frequency = useContext(FrequencyContext);
 
   return (
-    <TableRow key={income.id}>
+    <TableRow key={subscription.id}>
       <TableCell className="font-semibold text-tremor-content-strong text-md">
-        {income.name}
+        {subscription.name}
       </TableCell>
-      <TableCell>{formatAsCurrency(income.amount, false, true)}</TableCell>
-      <TableCell>{income.frequency}</TableCell>
-      <TableCell>{income.category}</TableCell>
+      <TableCell>
+        {formatAsCurrency(subscription.amount, false, true)}
+      </TableCell>
+      <TableCell>{subscription.frequency}</TableCell>
+      <TableCell>{subscription.category}</TableCell>
       <TableCell className=" font-semibold ">
-        {formatAsCurrency(income.total, false, true)}
+        {formatAsCurrency(subscription.total, false, true)}
       </TableCell>
       <TableCell className="flex gap-2">
-        <EditIncome income={income} />
+        <SubscriptionEdit subscription={subscription} />
 
-        <DeleteItem id={income.id} type="income" />
+        <SubscriptionDelete id={subscription.id} />
       </TableCell>
     </TableRow>
   );

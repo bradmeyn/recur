@@ -48,6 +48,7 @@ export type Database = {
           created_at: string | null
           frequency: Database["public"]["Enums"]["frequency"]
           id: string
+          name: string
           payment_date: string | null
           updated_at: string | null
           user_id: string
@@ -58,6 +59,7 @@ export type Database = {
           created_at?: string | null
           frequency?: Database["public"]["Enums"]["frequency"]
           id?: string
+          name?: string
           payment_date?: string | null
           updated_at?: string | null
           user_id: string
@@ -68,6 +70,7 @@ export type Database = {
           created_at?: string | null
           frequency?: Database["public"]["Enums"]["frequency"]
           id?: string
+          name?: string
           payment_date?: string | null
           updated_at?: string | null
           user_id?: string

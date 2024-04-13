@@ -8,12 +8,16 @@ import { RiPencilLine } from "@remixicon/react";
 import { updateIncomeAction } from "@/lib/actions/income";
 import Modal from "@/lib/components/Modal";
 import useModal from "@/lib/hooks/useModal";
-import { FREQUENCY_OPTIONS, INCOME_CATEGORY_OPTIONS } from "@/lib/constants";
+import { FREQUENCY_OPTIONS, CATEGORY_OPTIONS } from "@/lib/constants";
 import { Button } from "@tremor/react";
 import useSupabase from "@/lib/hooks/useSupabase";
-import { IncomeWithTotal } from "@/lib/types/data";
+import { SubscriptionWithTotal } from "@/lib/types/data";
 
-export function EditPayment({ income }: { income: IncomeWithTotal }) {
+export default function SubscriptionEdit({
+  subscription,
+}: {
+  subscription: SubscriptionWithTotal;
+}) {
   const { isOpen, openModal, closeModal } = useModal();
   const { user, loading } = useSupabase();
 
@@ -27,14 +31,14 @@ export function EditPayment({ income }: { income: IncomeWithTotal }) {
   } = useForm({
     resolver: zodResolver(IncomeSchema),
     defaultValues: {
-      name: income.name,
-      amount: income.amount || 0,
-      frequency: income.frequency,
-      category: income.category || "",
+      name: subscription.name,
+      amount: subscription.amount || 0,
+      frequency: subscription.frequency,
+      category: subscription.category || "",
     },
   });
 
-  const addIncome = async () => {
+  const addSubscription = async () => {
     // Validate the form
     trigger();
     if (!isValid) {
@@ -44,7 +48,7 @@ export function EditPayment({ income }: { income: IncomeWithTotal }) {
     }
 
     const formData = new FormData();
-    formData.append("incomeId", income.id);
+    formData.append("subscriptionId", subscription.id);
     formData.append("name", getValues("name"));
     formData.append("amount", getValues("amount"));
     formData.append("frequency", getValues("frequency"));
@@ -108,7 +112,7 @@ export function EditPayment({ income }: { income: IncomeWithTotal }) {
               <SelectInput
                 label="Category"
                 id="category"
-                options={INCOME_CATEGORY_OPTIONS}
+                options={CATEGORY_OPTIONS}
                 control={control}
                 error={errors?.category?.message?.toString()}
               />
