@@ -9,17 +9,13 @@ import {
   TableFooterCell,
 } from "@tremor/react";
 
-import { formatAsCurrency, frequencyTotal } from "@/lib/utils";
-import {
-  type Subscription,
-  type SubscriptionWithTotal,
-} from "@/lib/types/data";
+import { capitalise, formatAsCurrency } from "@/lib/utils";
+import { type SubscriptionWithTotal } from "@/lib/types/data";
 import { useContext } from "react";
 import { FrequencyContext } from "../_context/FrequencyContext";
-import SubscriptionAdd from "./SubscriptionAdd";
 import SubscriptionEdit from "./SubscriptionEdit";
 import SubscriptionDelete from "./SubscriptionDelete";
-import { RiPencilLine, RiDeleteBinLine } from "@remixicon/react";
+import Dropdown from "@/lib/components/Dropdown";
 
 export default function SubscriptionTable({
   subscriptions,
@@ -32,7 +28,6 @@ export default function SubscriptionTable({
 
   return (
     <>
-      <div className="flex items-center justify-between mb-6"></div>
       <Table>
         <TableHead>
           <TableRow className="border-b border-tremor-border dark:border-dark-tremor-border">
@@ -48,7 +43,7 @@ export default function SubscriptionTable({
             <TableHeaderCell className="text-tremor-content-strong">
               Category
             </TableHeaderCell>
-            <TableHeaderCell>Total</TableHeaderCell>
+            <TableHeaderCell>{capitalise(frequency)} Total</TableHeaderCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -68,7 +63,7 @@ export default function SubscriptionTable({
             <TableFooterCell></TableFooterCell>
             <TableFooterCell></TableFooterCell>
             <TableFooterCell className="text-lg text-tremor-content-strong">
-              {formatAsCurrency(total, false, true)}
+              {formatAsCurrency(total, true, true)}
             </TableFooterCell>
           </TableRow>
         </TableFoot>
@@ -89,17 +84,14 @@ function SubscriptionItem({
       <TableCell className="font-semibold text-tremor-content-strong text-md">
         {subscription.name}
       </TableCell>
-      <TableCell>
-        {formatAsCurrency(subscription.amount, false, true)}
-      </TableCell>
+      <TableCell>{formatAsCurrency(subscription.amount, true, true)}</TableCell>
       <TableCell>{subscription.frequency}</TableCell>
       <TableCell>{subscription.category}</TableCell>
       <TableCell className=" font-semibold ">
-        {formatAsCurrency(subscription.total, false, true)}
+        {formatAsCurrency(subscription.total, true, true)}
       </TableCell>
-      <TableCell className="flex gap-2">
+      <TableCell className="flex gap-1">
         <SubscriptionEdit subscription={subscription} />
-
         <SubscriptionDelete id={subscription.id} />
       </TableCell>
     </TableRow>

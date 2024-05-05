@@ -3,8 +3,8 @@ import "@/app/globals.css";
 import Header from "../(marketing)/_components/Header";
 
 export const metadata: Metadata = {
-  title: "Supabudget",
-  description: "Save your wallet",
+  title: "Recur",
+  description: "Track your subscriptions and recurring expenses",
 };
 
 export default function RootLayout({

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
 import Header from "../(dashboard)/_components/Header";
-import Navbar from "../(dashboard)/_components/Navbar";
 
 export const metadata: Metadata = {
   title: "Recur | Dashboard",

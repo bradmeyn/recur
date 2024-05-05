@@ -5,7 +5,7 @@ import useModal from "@/lib/hooks/useModal";
 import { Button } from "@tremor/react";
 import useSupabase from "@/lib/hooks/useSupabase";
 import { RiDeleteBinLine } from "@remixicon/react";
-import { deleteItemAction } from "@/lib/actions/delete";
+import { deleteSubscriptionAction } from "@/lib/actions/subscriptions";
 import { capitalise } from "@/lib/utils";
 
 export default function SubscriptionDelete({ id }: { id: string }) {
@@ -19,14 +19,14 @@ export default function SubscriptionDelete({ id }: { id: string }) {
   return (
     <>
       <button
-        className="hover:text-red-500 hover:bg-slate-200 p-2 rounded"
+        className="hover:text-red-500 hover:bg-slate-100 p-2 rounded gap-2 text-slate-500"
         onClick={openModal}
       >
-        <RiDeleteBinLine size={20} />
+        <RiDeleteBinLine size={15} />
       </button>
 
       <Modal isOpen={isOpen} close={handleClose} title={`Delete Subscription`}>
-        <form action={deleteItemAction}>
+        <form action={deleteSubscriptionAction}>
           <input type="hidden" name="id" value={id} />
           <input type="hidden" name="userId" value={user?.id} />
 

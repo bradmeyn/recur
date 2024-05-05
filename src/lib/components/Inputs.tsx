@@ -111,7 +111,6 @@ export function CurrencyInput({
         control={control}
         render={({ field: { onChange, ...fieldProps } }) => (
           <TextInput
-            icon={RiMoneyDollarCircleFill}
             {...fieldProps}
             id={id}
             name={name}

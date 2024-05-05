@@ -49,7 +49,6 @@ export type Database = {
           frequency: Database["public"]["Enums"]["frequency"]
           id: string
           name: string
-          payment_date: string | null
           updated_at: string | null
           user_id: string
         }
@@ -60,7 +59,6 @@ export type Database = {
           frequency?: Database["public"]["Enums"]["frequency"]
           id?: string
           name?: string
-          payment_date?: string | null
           updated_at?: string | null
           user_id: string
         }
@@ -71,13 +69,12 @@ export type Database = {
           frequency?: Database["public"]["Enums"]["frequency"]
           id?: string
           name?: string
-          payment_date?: string | null
           updated_at?: string | null
           user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "payment_user_id_fkey"
+            foreignKeyName: "subscription_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"

@@ -1,4 +1,4 @@
-import { Expense, Income, Savings, Frequency } from "@/lib/types/data";
+import { Frequency, SubscriptionWithTotal } from "@/lib/types/data";
 
 export function formatAsCurrency(
   value: number,
@@ -58,7 +58,7 @@ export type CategoryTotal = {
 
 export function frequencyTotal(
   valueFrequency: Frequency,
-  displayFrequency: Frequency = "annually",
+  displayFrequency: Frequency = "yearly",
   value: number
 ): number {
   // Convert the value to an annual amount first.
@@ -82,7 +82,7 @@ export function frequencyTotal(
     case "half-yearly":
       annualValue = value * 2;
       break;
-    case "annually":
+    case "yearly":
       annualValue = value;
       break;
     default:
@@ -103,23 +103,21 @@ export function frequencyTotal(
       return annualValue / 4;
     case "half-yearly":
       return annualValue / 2;
-    case "annually":
+    case "yearly":
       return annualValue;
     default:
       throw new Error("Invalid display frequency");
   }
 }
 
-export function consolidateCategoryData(
-  data: Income[] | Expense[] | Savings[]
-) {
+export function consolidateCategoryData(data: SubscriptionWithTotal[]) {
   const categorySums: { [key: string]: number } = {};
 
   // Process each item in the data array
   data.forEach((item) => {
     // Assume that item.category is the category of the item and item.amount is the value
     const category = item.category || "Uncategorised";
-    const amount = item.amount;
+    const amount = item.total;
 
     if (!categorySums[category]) {
       categorySums[category] = 0; // Initialize if not present

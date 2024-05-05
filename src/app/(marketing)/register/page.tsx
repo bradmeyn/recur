@@ -6,7 +6,6 @@ import RegisterForm from "./RegisterForm";
 export default function SignUpPage() {
   return (
     <div className="flex min-h-full flex-1 flex-col mt-20 px-4 py-10 lg:px-6">
-      <h1 className="text-center mb-10">Supabudget</h1>
       <Card className="sm:mx-auto sm:w-full sm:max-w-lg">
         <h3 className="text-center text-tremor-title font-semibold text-tremor-content-strong dark:text-dark-tremor-content-strong">
           Create an account

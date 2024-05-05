@@ -17,7 +17,7 @@ export default function Home() {
 
             <Link
               href="/dashboard"
-              className="rounded-full bg-tremor-brand text-white py-3 px-4  text-lg"
+              className="rounded-full bg-tremor-brand text-white py-3 px-4 text-lg"
             >
               Get Started
             </Link>

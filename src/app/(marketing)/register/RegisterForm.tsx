@@ -10,8 +10,7 @@ import { useFormState } from "react-dom";
 import { SignUpWithPasswordCredentials } from "@supabase/supabase-js";
 
 type FormInputs = {
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -20,14 +19,11 @@ type FormInputs = {
 export default function RegisterForm() {
   const schema = z
     .object({
-      firstName: z
+      name: z
         .string()
         .trim()
         .min(2, { message: "First name must be 2 or more letters" }),
-      lastName: z
-        .string()
-        .trim()
-        .min(2, { message: "Last name must be 2 or more letters" }),
+
       email: z.string().trim().email({ message: "Email is required" }).min(1),
       password: z
         .string()
@@ -48,8 +44,7 @@ export default function RegisterForm() {
   } = useForm<z.output<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
+      name: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -69,25 +64,14 @@ export default function RegisterForm() {
       className="mt-6 grid grid-cols-2 gap-5"
       onSubmit={handleSubmit(() => formRef.current?.submit())} //
     >
-      <div className="col-span-full sm:col-span-1">
+      <div className="col-span-full">
         <Input
-          label="First name"
-          id="first-name"
+          label="Name"
+          id="name"
           type="text"
-          placeholder="First name"
-          register={register("firstName")}
-          error={errors?.firstName?.message}
-        />
-      </div>
-
-      <div className="col-span-full sm:col-span-1">
-        <Input
-          label="Last name"
-          id="last-name"
-          type="text"
-          placeholder="Last name"
-          register={register("lastName")}
-          error={errors?.lastName?.message}
+          placeholder="Name"
+          register={register("name")}
+          error={errors?.name?.message}
         />
       </div>
 

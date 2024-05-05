@@ -7,3 +7,8 @@ export async function getUser() {
   } = await supabase.auth.getUser();
   return user;
 }
+
+export async function logout() {
+  const supabase = createClient();
+  await supabase.auth.signOut();
+}

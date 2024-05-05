@@ -16,6 +16,7 @@ export const FREQUENCY_OPTIONS: FrequencyOption[] = [
 ];
 
 export const CATEGORY_OPTIONS = [
-  { label: "Streaming/entertainment", value: "streaming/entertainment" },
+  { label: "Entertainment", value: "entertainment" },
   { label: "Insurance", value: "insurance" },
+  { label: "Work", value: "work" },
 ];

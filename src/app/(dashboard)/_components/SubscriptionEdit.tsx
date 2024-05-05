@@ -1,11 +1,11 @@
 "use client";
 
-import { IncomeSchema } from "@/lib/schema";
+import { SubscriptionSchema } from "@/lib/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CurrencyInput, Input, SelectInput } from "@/lib/components/Inputs";
 import { RiPencilLine } from "@remixicon/react";
-import { updateIncomeAction } from "@/lib/actions/income";
+import { updateSubscriptionAction } from "@/lib/actions/subscriptions";
 import Modal from "@/lib/components/Modal";
 import useModal from "@/lib/hooks/useModal";
 import { FREQUENCY_OPTIONS, CATEGORY_OPTIONS } from "@/lib/constants";
@@ -29,7 +29,7 @@ export default function SubscriptionEdit({
     reset,
     formState: { errors, isValid },
   } = useForm({
-    resolver: zodResolver(IncomeSchema),
+    resolver: zodResolver(SubscriptionSchema),
     defaultValues: {
       name: subscription.name,
       amount: subscription.amount || 0,
@@ -38,7 +38,7 @@ export default function SubscriptionEdit({
     },
   });
 
-  const addSubscription = async () => {
+  const updateSubscription = async () => {
     // Validate the form
     trigger();
     if (!isValid) {
@@ -56,7 +56,7 @@ export default function SubscriptionEdit({
     formData.append("userId", user!.id);
 
     // Call the server action
-    const result = await updateIncomeAction(formData);
+    const result = await updateSubscriptionAction(formData);
 
     handleClose();
   };
@@ -69,14 +69,14 @@ export default function SubscriptionEdit({
   return (
     <>
       <button
-        className="hover:text-tremor-brand hover:bg-slate-200 p-2 rounded"
+        className="hover:text-tremor-brand hover:bg-slate-100 p-2 rounded text-slate-500 "
         onClick={openModal}
       >
-        <RiPencilLine size={20} />
+        <RiPencilLine size={15} />
       </button>
 
       <Modal isOpen={isOpen} close={handleClose} title="Add Income">
-        <form action={addIncome}>
+        <form action={updateSubscription}>
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-2">
               <Input

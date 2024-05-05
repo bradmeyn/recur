@@ -10,28 +10,30 @@ import {
   ListItem,
 } from "@tremor/react";
 
-import { formatAsCurrency, formatAsPercentage } from "@/lib/utils";
+import { capitalise, formatAsCurrency, formatAsPercentage } from "@/lib/utils";
 import { consolidateCategoryData } from "@/lib/utils";
-import { type Income, type Expense, type Savings } from "@/lib/types/data";
+import { SubscriptionWithTotal, type Subscription } from "@/lib/types/data";
 
-export function CategoriesChart({
-  data,
+export default function CategoriesChart({
+  subscriptions,
+  total,
 }: {
-  data: (Income | Expense | Savings)[];
+  subscriptions: SubscriptionWithTotal[];
+  total: number;
 }) {
   // Use the consolidateCategoryData function to process the data
-  const chartData = consolidateCategoryData(data);
-
-  // Calculate total value for the legend
-  const total = chartData.reduce((acc, item) => acc + item.total, 0);
+  const chartData = consolidateCategoryData(subscriptions);
 
   // Formatter function (assuming this is already defined somewhere)
 
   return (
     <div className="flex flex-col items-start gap-4">
       <DonutChart
-        valueFormatter={(value: number) => formatAsCurrency(value)}
-        data={chartData.map((item) => ({ name: item.name, value: item.total }))}
+        valueFormatter={(value: number) => formatAsCurrency(value, true, true)}
+        data={chartData.map((item) => ({
+          name: capitalise(item.name),
+          value: item.total,
+        }))}
         colors={["emerald", "rose", "sky"]} // These colors may need to be valid CSS/tailwind class names
       />
       <List className="w-full">
@@ -41,10 +43,10 @@ export function CategoriesChart({
               <span
                 className={`size-3 rounded inline-block mr-2 bg-indigo-${i}00`} // Ensure these classes correspond to actual colors
               />
-              {item.name}
+              {capitalise(item.name)}
             </span>
             <span>
-              {formatAsCurrency(item.total)} (
+              {formatAsCurrency(item.total, true, true)} (
               <span>{formatAsPercentage(item.total / total)}</span>)
             </span>
           </ListItem>

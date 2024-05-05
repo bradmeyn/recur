@@ -7,12 +7,12 @@ const frequencyValues = [
   "monthly",
   "quarterly",
   "half-yearly",
-  "annually",
+  "yearly",
 ] as const;
 
 export type Frequency = (typeof frequencyValues)[number];
 
-export const IncomeSchema = z.object({
+export const SubscriptionSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   amount: z
     .number({ required_error: "Amount is required" })
@@ -21,18 +21,4 @@ export const IncomeSchema = z.object({
     required_error: "Frequency is required",
   }),
   category: z.string().min(1, { message: "Category is required" }),
-});
-
-export const ExpenseSchema = z.object({
-  name: z.string(),
-  amount: z.number().positive(),
-  frequency: z.enum(frequencyValues),
-  category: z.string(),
-});
-
-export const SavingsSchema = z.object({
-  name: z.string(),
-  amount: z.number().positive(),
-  frequency: z.enum(frequencyValues),
-  category: z.string(),
 });

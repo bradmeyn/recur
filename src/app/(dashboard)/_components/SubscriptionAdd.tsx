@@ -1,18 +1,16 @@
 "use client";
 
-import { IncomeSchema, ExpenseSchema, SavingsSchema } from "@/lib/schema";
+import { SubscriptionSchema } from "@/lib/schema";
+import { addSubscriptionAction } from "@/lib/actions/subscriptions";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CurrencyInput, Input, SelectInput } from "@/lib/components/Inputs";
-import { addIncomeAction } from "@/lib/actions/income";
-import { addExpenseAction } from "@/lib/actions/expense";
+
 import Modal from "@/lib/components/Modal";
 import useModal from "@/lib/hooks/useModal";
 import { CATEGORY_OPTIONS, FREQUENCY_OPTIONS } from "@/lib/constants";
 import { Button } from "@tremor/react";
 import useSupabase from "@/lib/hooks/useSupabase";
-
-import { useFormState } from "react-dom";
 
 export default function SubscriptionAdd() {
   const { isOpen, openModal, closeModal } = useModal();
@@ -27,7 +25,7 @@ export default function SubscriptionAdd() {
     reset,
     formState: { errors, isValid },
   } = useForm({
-    resolver: zodResolver(IncomeSchema),
+    resolver: zodResolver(SubscriptionSchema),
     defaultValues: {
       name: "",
       amount: "0",
@@ -36,7 +34,7 @@ export default function SubscriptionAdd() {
     },
   });
 
-  const addIncome = async () => {
+  const addSubscription = async () => {
     // Validate the form
     trigger();
     if (!isValid) {
@@ -51,7 +49,7 @@ export default function SubscriptionAdd() {
     formData.append("userId", user!.id);
 
     // Call the server action
-    const result = await addIncomeAction(formData);
+    const result = await addSubscriptionAction(formData);
 
     handleClose();
   };
@@ -63,10 +61,10 @@ export default function SubscriptionAdd() {
 
   return (
     <>
-      <Button onClick={openModal}>Add</Button>
+      <Button onClick={openModal}>Add Subscription</Button>
 
       <Modal isOpen={isOpen} close={handleClose} title="Add Subscription">
-        <form action={addIncome}>
+        <form action={addSubscription}>
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-2">
               <Input
@@ -109,8 +107,8 @@ export default function SubscriptionAdd() {
             </div>
           </div>
 
-          <Button className="mt-14" type="submit">
-            Add income
+          <Button className="mt-14 w-full" type="submit">
+            Add Subscription
           </Button>
         </form>
       </Modal>

@@ -44,9 +44,11 @@ export async function getSubscriptions(
     .select("*")
     .eq("user_id", userId);
 
+  console.log("Data:", data);
+
   // Handle potential error
   if (error) {
-    console.error("Error fetching income:", error);
+    console.error("Error fetching subscription:", error);
     throw error; // or handle it in another appropriate way
   }
 
