@@ -10,6 +10,17 @@ import {
 } from "@tremor/react";
 
 export default function Dashboard() {
+  const subscriptions = [
+    {
+      id: "1",
+      subscription: "Netflix",
+      cost: 12.99,
+      frequency: "Monthly",
+      category: "Entertainment",
+      paymentDate: "2022-02-01",
+    },
+  ];
+
   return (
     <div className="grid grid-cols-12 gap-4">
       <div className="col-span-12 sm:col-span-9">
@@ -32,6 +43,7 @@ function SubscriptionTable() {
             <TableHeaderCell>Subscription</TableHeaderCell>
             <TableHeaderCell>Cost</TableHeaderCell>
             <TableHeaderCell>Frequency</TableHeaderCell>
+            <TableHeaderCell>Category</TableHeaderCell>
             <TableHeaderCell>Payment Date</TableHeaderCell>
           </TableRow>
         </TableHead>

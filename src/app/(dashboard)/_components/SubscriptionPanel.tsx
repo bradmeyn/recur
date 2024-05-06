@@ -1,5 +1,5 @@
 "use client";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { frequencyTotal } from "@/lib/utils";
 import { Card, Select, SelectItem } from "@tremor/react";
 
@@ -62,6 +62,7 @@ export default function SubscriptionPanel({
       <FrequencyContext.Provider value={frequency}>
         <div className="grid grid-cols-12 gap-4">
           <Card className="col-span-12 lg:col-span-8 h-fit">
+            <h2 className="mb-2">Subscriptions</h2>
             <SubscriptionTable
               subscriptions={totalledSubscriptions}
               total={total}
@@ -69,7 +70,7 @@ export default function SubscriptionPanel({
           </Card>
 
           <Card className="col-span-12 lg:col-span-4 gap-4">
-            <h2>Overview</h2>
+            <h2 className="mb-2">Subscription by Category</h2>
             <CategoriesChart
               subscriptions={totalledSubscriptions}
               total={total}

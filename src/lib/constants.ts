@@ -1,4 +1,4 @@
-import { type Frequency } from "@/lib/types/data";
+import { type Frequency, type Subscription } from "@/lib/types/data";
 
 type FrequencyOption = {
   label: string;
@@ -19,4 +19,27 @@ export const CATEGORY_OPTIONS = [
   { label: "Entertainment", value: "entertainment" },
   { label: "Insurance", value: "insurance" },
   { label: "Work", value: "work" },
+];
+
+export const TEMP_SUBSCRIPTIONS: Subscription[] = [
+  {
+    id: "1",
+    name: "Netflix",
+    amount: 10,
+    frequency: "monthly",
+    category: "entertainment",
+    user_id: "1",
+    created_at: new Date().toDateString(),
+    updated_at: new Date().toDateString(),
+  },
+  {
+    id: "2",
+    name: "Amazon Prime",
+    amount: 8,
+    frequency: "monthly",
+    category: "entertainment",
+    user_id: "1",
+    created_at: new Date().toDateString(),
+    updated_at: new Date().toDateString(),
+  },
 ];

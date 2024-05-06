@@ -1,5 +1,6 @@
 import Link from "next/link";
-import Dashboard from "./_components/Dashboard";
+import SubscriptionPanel from "@/app/(dashboard)/_components/SubscriptionPanel";
+import { TEMP_SUBSCRIPTIONS } from "@/lib/constants";
 
 export default function Home() {
   return (
@@ -24,8 +25,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-12">
-          <Dashboard />
+        <section>
+          <SubscriptionPanel subscriptions={TEMP_SUBSCRIPTIONS} />
         </section>
       </main>
     </>

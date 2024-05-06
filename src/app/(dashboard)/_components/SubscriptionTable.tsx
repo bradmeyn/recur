@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Table,
   TableHead,
@@ -16,6 +18,7 @@ import { FrequencyContext } from "../_context/FrequencyContext";
 import SubscriptionEdit from "./SubscriptionEdit";
 import SubscriptionDelete from "./SubscriptionDelete";
 import Dropdown from "@/lib/components/Dropdown";
+import { usePathname } from "next/navigation";
 
 export default function SubscriptionTable({
   subscriptions,
@@ -79,6 +82,8 @@ function SubscriptionItem({
 }) {
   const frequency = useContext(FrequencyContext);
 
+  const homeRoute = usePathname() === "/";
+
   return (
     <TableRow key={subscription.id}>
       <TableCell className="font-semibold text-tremor-content-strong text-md">
@@ -90,10 +95,12 @@ function SubscriptionItem({
       <TableCell className=" font-semibold ">
         {formatAsCurrency(subscription.total, true, true)}
       </TableCell>
-      <TableCell className="flex gap-1">
-        <SubscriptionEdit subscription={subscription} />
-        <SubscriptionDelete id={subscription.id} />
-      </TableCell>
+      {!homeRoute ? (
+        <TableCell className="flex gap-1">
+          <SubscriptionEdit subscription={subscription} />
+          <SubscriptionDelete id={subscription.id} />
+        </TableCell>
+      ) : null}
     </TableRow>
   );
 }
