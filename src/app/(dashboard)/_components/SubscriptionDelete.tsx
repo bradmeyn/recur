@@ -6,7 +6,6 @@ import { Button } from "@tremor/react";
 import useSupabase from "@/lib/hooks/useSupabase";
 import { RiDeleteBinLine } from "@remixicon/react";
 import { deleteSubscriptionAction } from "@/lib/actions/subscriptions";
-import { capitalise } from "@/lib/utils";
 
 export default function SubscriptionDelete({ id }: { id: string }) {
   const { isOpen, openModal, closeModal } = useModal();

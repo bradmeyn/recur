@@ -80,8 +80,6 @@ function SubscriptionItem({
 }: {
   subscription: SubscriptionWithTotal;
 }) {
-  const frequency = useContext(FrequencyContext);
-
   const homeRoute = usePathname() === "/";
 
   return (
@@ -90,8 +88,8 @@ function SubscriptionItem({
         {subscription.name}
       </TableCell>
       <TableCell>{formatAsCurrency(subscription.amount, true, true)}</TableCell>
-      <TableCell>{subscription.frequency}</TableCell>
-      <TableCell>{subscription.category}</TableCell>
+      <TableCell>{capitalise(subscription.frequency)}</TableCell>
+      <TableCell>{capitalise(subscription.category)}</TableCell>
       <TableCell className=" font-semibold ">
         {formatAsCurrency(subscription.total, true, true)}
       </TableCell>
