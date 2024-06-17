@@ -4,7 +4,7 @@ import { IncomeSchema, ExpenseSchema, SavingsSchema } from "@/lib/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CurrencyInput, Input, SelectInput } from "@/components/Inputs";
-import { addIncomeAction } from "@/actions/income";
+import { addIncomeAction } from "@/lib/actions/income";
 import Modal from "@/components/Modal";
 import useModal from "@/hooks/useModal";
 import {

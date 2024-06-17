@@ -3,15 +3,15 @@
 import { IncomeSchema } from "@/lib/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CurrencyInput, Input, SelectInput } from "@/components/Inputs";
+import { CurrencyInput, Input, SelectInput } from "@components/Inputs";
 import { RiPencilLine } from "@remixicon/react";
-import { updateIncomeAction } from "@/actions/income";
-import Modal from "@/components/Modal";
-import useModal from "@/hooks/useModal";
+import { updateIncomeAction } from "@/lib/actions/income";
+import Modal from "@components/Modal";
+import useModal from "@hooks/useModal";
 import { FREQUENCY_OPTIONS, INCOME_CATEGORY_OPTIONS } from "@/lib/constants";
 import { Button } from "@tremor/react";
-import useSupabase from "@/hooks/useSupabase";
-import { IncomeWithTotal } from "@/types/data";
+import useSupabase from "@hooks/useSupabase";
+import { IncomeWithTotal } from "@/lib/types/data";
 
 export function EditIncome({ income }: { income: IncomeWithTotal }) {
   const { isOpen, openModal, closeModal } = useModal();
@@ -42,17 +42,6 @@ export function EditIncome({ income }: { income: IncomeWithTotal }) {
       console.log(errors);
       return;
     }
-
-    const formData = new FormData();
-    formData.append("incomeId", income.id);
-    formData.append("name", getValues("name"));
-    formData.append("amount", getValues("amount"));
-    formData.append("frequency", getValues("frequency"));
-    formData.append("category", getValues("category"));
-    formData.append("userId", user!.id);
-
-    // Call the server action
-    const result = await updateIncomeAction(formData);
 
     handleClose();
   };

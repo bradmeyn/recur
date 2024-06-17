@@ -20,7 +20,7 @@ import {
   type IncomeWithTotal,
   type ExpenseWithTotal,
   type SavingsWithTotal,
-} from "@/types/data";
+} from "@/lib/types/data";
 import { IncomeTable, ExpensesTable, SavingsTable } from "./Tables";
 import { CategoriesChart } from "./Charts";
 import { FREQUENCY_OPTIONS } from "@/lib/constants";

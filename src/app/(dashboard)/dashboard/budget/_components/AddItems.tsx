@@ -3,18 +3,18 @@
 import { IncomeSchema, ExpenseSchema, SavingsSchema } from "@/lib/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CurrencyInput, Input, SelectInput } from "@/components/Inputs";
-import { addIncomeAction } from "@/actions/income";
-import { addExpenseAction } from "@/actions/expense";
-import Modal from "@/components/Modal";
-import useModal from "@/hooks/useModal";
+import { CurrencyInput, Input, SelectInput } from "@components/Inputs";
+import { addIncomeAction } from "@/lib/actions/income";
+import { addExpenseAction } from "@/lib/actions/expense";
+import Modal from "@components/Modal";
+import useModal from "@hooks/useModal";
 import {
   EXPENSE_CATEGORY_OPTIONS,
   FREQUENCY_OPTIONS,
   INCOME_CATEGORY_OPTIONS,
 } from "@/lib/constants";
 import { Button } from "@tremor/react";
-import useSupabase from "@/hooks/useSupabase";
+import useSupabase from "@hooks/useSupabase";
 
 import { useFormState } from "react-dom";
 

@@ -1,9 +1,9 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { deleteIncome } from "@/services/income";
-import { deleteExpense } from "@/services/expenses";
-import { deleteSavings } from "@/services/savings";
+import { deleteIncome } from "@/lib/services/income";
+import { deleteExpense } from "@/lib/services/expenses";
+import { deleteSavings } from "@/lib/services/savings";
 
 export async function deleteItemAction(formData: FormData) {
   const itemId = formData.get("id") as string;

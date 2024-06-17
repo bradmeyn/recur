@@ -1,11 +1,11 @@
 "use client";
 
-import Modal from "@/components/Modal";
-import useModal from "@/hooks/useModal";
+import Modal from "@components/Modal";
+import useModal from "@hooks/useModal";
 import { Button } from "@tremor/react";
-import useSupabase from "@/hooks/useSupabase";
+import useSupabase from "@hooks/useSupabase";
 import { RiDeleteBinLine } from "@remixicon/react";
-import { deleteItemAction } from "@/actions/delete";
+import { deleteItemAction } from "@/lib/actions/delete";
 import { capitalise } from "@/lib/utils";
 
 type Props = {

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function Header() {
@@ -15,7 +14,6 @@ export default async function Header() {
         href={"/"}
         className="text-slate-900 font-bold flex items-center gap-1 "
       >
-        <Image src="./logo.svg" alt="Supabudget Logo" width={40} height={40} />
         <span className="text-xl">Supabudget</span>
       </Link>
 

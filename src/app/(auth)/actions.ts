@@ -4,8 +4,6 @@ import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 
 export async function registerAction(formData: FormData) {
-  console.log("signUp");
-  console.log("formData", formData);
   const supabase = createClient();
 
   const origin = headers().get("origin");
@@ -33,8 +31,6 @@ type FormState = {
 };
 
 export async function loginAction(formData: FormData) {
-  console.log("signIn");
-  console.log("formData", formData);
 
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;

@@ -5,13 +5,12 @@ import {
   RiRefund2Line,
   RiPieChartLine,
   RiCoinLine,
-  RiSettings4Line,
   RiAccountCircleFill,
 } from "@remixicon/react";
 import { Divider } from "@tremor/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { logoutAction } from "@/app/(marketing)/actions";
+import { logoutAction } from "@/app/(auth)/actions";
 import Image from "next/image";
 
 export default function Navbar() {
@@ -21,20 +20,11 @@ export default function Navbar() {
       href: "/dashboard/budget",
       Icon: RiMoneyDollarCircleLine,
     },
-    {
-      name: "Subscriptions",
-      href: "/dashboard/subscriptions",
-      Icon: RiRefund2Line,
-    },
+
     {
       name: "Balance Sheet",
       href: "/dashboard/balance-sheet",
       Icon: RiPieChartLine,
-    },
-    {
-      name: "Insurances",
-      href: "/dashboard/insurances",
-      Icon: RiCoinLine,
     },
   ];
 

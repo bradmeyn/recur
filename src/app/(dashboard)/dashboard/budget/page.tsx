@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
-import { getUser } from "@/services/user";
+import { getUser } from "@/lib/services/user";
 
-import { getIncome } from "@/services/income";
-import { getExpenses } from "@/services/expenses";
+import { getIncome } from "@/lib/services/income";
+import { getExpenses } from "@/lib/services/expenses";
 import { BudgetTabs } from "./_components/BudgetTabs";
 
 export default async function BudgetPage() {

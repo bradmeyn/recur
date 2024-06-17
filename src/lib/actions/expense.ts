@@ -1,6 +1,6 @@
 "use server";
 
-import { addExpense } from "@/services/expenses";
+import { addExpense } from "@/lib/services/expenses";
 import { ExpenseSchema, type Frequency } from "@/lib/schema";
 import { revalidatePath } from "next/cache";
 

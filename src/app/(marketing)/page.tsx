@@ -24,12 +24,6 @@ export default function Home() {
             </Link>
           </div>
         </section>
-
-        <section className="py-12">
-          <Dashboard />
-        </section>
-
-        <section className="py-12"></section>
       </main>
     </>
   );

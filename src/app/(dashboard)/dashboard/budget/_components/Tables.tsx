@@ -17,7 +17,7 @@ import {
   type IncomeWithTotal,
   type ExpenseWithTotal,
   type SavingsWithTotal,
-} from "@/types/data";
+} from "@/lib/types/data";
 import { useContext } from "react";
 import { FrequencyContext } from "../_context/FrequencyContext";
 import { AddExpense, AddIncome } from "./AddItems";

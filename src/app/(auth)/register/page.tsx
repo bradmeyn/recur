@@ -1,5 +1,8 @@
 import { Divider, Card } from "@tremor/react";
-import { GitHubButton, GoogleButton } from "../_components/AuthButtons";
+import {
+  GitHubButton,
+  GoogleButton,
+} from "../../(marketing)/_components/AuthButtons";
 
 import RegisterForm from "./RegisterForm";
 

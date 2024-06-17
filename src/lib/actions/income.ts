@@ -1,5 +1,5 @@
 "use server";
-import { addIncome, updateIncome } from "@/services/income";
+import { addIncome, updateIncome } from "@/lib/services/income";
 import { IncomeSchema, type Frequency } from "@/lib/schema";
 import { revalidatePath } from "next/cache";
 

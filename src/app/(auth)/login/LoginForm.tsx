@@ -1,6 +1,9 @@
 "use client";
 
-import { GitHubButton, GoogleButton } from "../_components/AuthButtons";
+import {
+  GitHubButton,
+  GoogleButton,
+} from "../../(marketing)/_components/AuthButtons";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";

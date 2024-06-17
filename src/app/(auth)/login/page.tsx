@@ -2,7 +2,10 @@ import { Divider, Card } from "@tremor/react";
 import LoginForm from "./LoginForm";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-import { GoogleButton, GitHubButton } from "../_components/AuthButtons";
+import {
+  GoogleButton,
+  GitHubButton,
+} from "../../(marketing)/_components/AuthButtons";
 
 export default async function LoginPage() {
   const supabase = createClient();
