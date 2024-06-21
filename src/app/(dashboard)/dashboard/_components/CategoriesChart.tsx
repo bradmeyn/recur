@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  Card,
-  DonutChart,
-  Legend,
-  LineChart,
-  LineChartProps,
-  List,
-  ListItem,
-} from "@tremor/react";
+import { DonutChart, List, ListItem } from "@tremor/react";
 
 import { capitalise, formatAsCurrency, formatAsPercentage } from "@/lib/utils";
 import { consolidateCategoryData } from "@/lib/utils";

@@ -2,7 +2,13 @@
 
 import { RiMoneyDollarCircleFill } from "@remixicon/react";
 import { Select, SelectItem, TextInput } from "@tremor/react";
-import { Controller } from "react-hook-form";
+import {
+  Controller,
+  FieldError,
+  FieldErrorsImpl,
+  UseFormRegisterReturn,
+  Merge,
+} from "react-hook-form";
 import { formatAsCurrency, parseCurrency } from "../utils";
 
 type SelectInputProps = {
@@ -52,10 +58,14 @@ export function SelectInput({
 type InputProps = {
   label: string;
   id: string;
-  type: string;
+  type: "text" | "email" | "password" | "url" | undefined;
   placeholder: string;
-  register: any;
-  error: string | undefined;
+  register: UseFormRegisterReturn<string>;
+  error:
+    | string
+    | FieldError
+    | Merge<FieldError, FieldErrorsImpl<any>>
+    | undefined;
 };
 
 export function Input({
@@ -71,12 +81,11 @@ export function Input({
       <label htmlFor={id}>{label}</label>
       <TextInput
         id={id}
-        name={id}
         type={type}
         placeholder={placeholder}
         {...register}
-        error={error}
-        errorMessage={error}
+        error={error as boolean | undefined}
+        errorMessage={error as string}
       />
     </>
   );
@@ -86,9 +95,13 @@ type CurrencyInputProps = {
   label: string;
   id: string;
   name: string;
-  register: any;
+  register: UseFormRegisterReturn<string>;
   control: any;
-  error: string | undefined;
+  error:
+    | string
+    | FieldError
+    | Merge<FieldError, FieldErrorsImpl<any>>
+    | undefined;
 };
 
 export function CurrencyInput({
@@ -115,9 +128,8 @@ export function CurrencyInput({
             id={id}
             name={name}
             placeholder="0.00"
-            // @ts-ignore
-            error={error}
-            errorMessage={error}
+            error={error as boolean | undefined}
+            errorMessage={error as string}
             value={formatAsCurrency(fieldProps.value)}
             onChange={(e) => onChange(handleChange(e))}
           />

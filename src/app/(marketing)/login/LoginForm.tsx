@@ -1,27 +1,24 @@
 "use client";
 
-import { GitHubButton, GoogleButton } from "../_components/AuthButtons";
+import {
+  GitHubButton,
+  GoogleButton,
+  SubmitButton,
+} from "../_components/AuthButtons";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Input } from "@/lib/components/Inputs";
 import { loginAction } from "../actions";
-
-const schema = z.object({
-  email: z.string().trim().email({ message: "Email is required" }).min(1),
-  password: z
-    .string()
-    .trim()
-    .min(8, { message: "Password must be 8 or more characters" }),
-});
+import { loginSchema } from "../schema";
 
 export default function LoginForm() {
   const {
     register,
     trigger,
     formState: { errors, isSubmitting, isValid, isDirty },
-  } = useForm<z.output<typeof schema>>({
-    resolver: zodResolver(schema),
+  } = useForm<z.output<typeof loginSchema>>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -33,9 +30,6 @@ export default function LoginForm() {
     trigger();
 
     if (!isValid) {
-      console.log(isValid);
-      alert("Form is invalid");
-
       return;
     }
 
@@ -72,19 +66,10 @@ export default function LoginForm() {
           />
         </div>
 
-        <button
-          className={`
-              mt-4  col-span-2 w-full  whitespace-nowrap rounded-tremor-default text-tremor-brand-inverted   py-2 text-center text-tremor-default font-medium
-              ${
-                !isValid && isDirty
-                  ? "bg-tremor-brand/65 cursor-not-allowed  border-red-600  "
-                  : " cursor-pointer bg-tremor-brand shadow-tremor-input hover:bg-tremor-brand-emphasis"
-              }`}
-          disabled={!isValid}
-          type="submit"
-        >
-          Sign in
-        </button>
+        <SubmitButton
+          isDisabled={!isDirty || !isValid || isSubmitting}
+          action="Login"
+        />
       </form>
     </>
   );

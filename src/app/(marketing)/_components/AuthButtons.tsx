@@ -1,4 +1,6 @@
+import Spinner from "@/lib/components/Spinner";
 import { RiGithubFill, RiGoogleFill } from "@remixicon/react";
+import { useFormStatus } from "react-dom";
 
 export function GoogleButton({ action = "Sign in with" }: { action?: string }) {
   return (
@@ -21,5 +23,30 @@ export function GitHubButton({ action = "Sign in with" }: { action?: string }) {
       <RiGithubFill className="text-2xl" />
       <span className="text-tremor-default font-medium">{action} GitHub</span>
     </a>
+  );
+}
+
+export function SubmitButton({
+  isDisabled,
+  action,
+}: {
+  isDisabled: boolean;
+  action: string;
+}) {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      className={`
+      mt-4  col-span-2 w-full  whitespace-nowrap rounded-tremor-default text-tremor-brand-inverted   py-2 text-center text-tremor-default font-medium
+      ${
+        isDisabled || pending
+          ? "bg-tremor-brand/65 cursor-not-allowed  "
+          : " cursor-pointer bg-tremor-brand shadow-tremor-input hover:bg-tremor-brand-emphasis"
+      }`}
+      disabled={isDisabled || pending}
+      type="submit"
+    >
+      {pending ? <Spinner /> : action}
+    </button>
   );
 }

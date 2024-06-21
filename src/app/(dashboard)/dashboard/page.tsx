@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 import { getUser } from "@/lib/services/user";
 import { getSubscriptions } from "@/lib/services/subscriptions";
-import SubscriptionAdd from "../_components/SubscriptionAdd";
-import SubscriptionPanel from "../_components/SubscriptionPanel";
+import SubscriptionAdd from "./_components/SubscriptionAdd";
+import SubscriptionPanel from "./_components/SubscriptionPanel";
 
 export default async function SubscriptionPage() {
   const user = await getUser();

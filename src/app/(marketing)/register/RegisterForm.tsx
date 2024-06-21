@@ -1,48 +1,22 @@
 "use client";
-
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Input } from "@/lib/components/Inputs";
 import { RiCheckFill, RiErrorWarningFill } from "@remixicon/react";
 import { useRef } from "react";
-import { useFormState } from "react-dom";
-import { SignUpWithPasswordCredentials } from "@supabase/supabase-js";
 
-type FormInputs = {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
+import { registerSchema } from "../schema";
+import { SubmitButton } from "../_components/AuthButtons";
 
 export default function RegisterForm() {
-  const schema = z
-    .object({
-      name: z
-        .string()
-        .trim()
-        .min(2, { message: "First name must be 2 or more letters" }),
-
-      email: z.string().trim().email({ message: "Email is required" }).min(1),
-      password: z
-        .string()
-        .trim()
-        .min(8, { message: "Password must be 8 or more characters" }),
-      confirmPassword: z.string().trim(),
-    })
-    .refine((data: FormInputs) => data.password === data.confirmPassword, {
-      message: "Passwords must match",
-      path: ["confirmPassword"],
-    });
-
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isSubmitting, isValid, isDirty },
-  } = useForm<z.output<typeof schema>>({
-    resolver: zodResolver(schema),
+    formState: { errors, isValid, isDirty },
+  } = useForm<z.output<typeof registerSchema>>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -111,19 +85,7 @@ export default function RegisterForm() {
         />
       </div>
 
-      <button
-        className={`
-            mt-4  col-span-2 w-full  whitespace-nowrap rounded-tremor-default text-tremor-brand-inverted   py-2 text-center text-tremor-default font-medium
-            ${
-              !isValid && isDirty
-                ? "bg-tremor-brand/65 cursor-not-allowed  border-red-600  "
-                : " cursor-pointer bg-tremor-brand shadow-tremor-input hover:bg-tremor-brand-emphasis"
-            }`}
-        disabled={!isValid}
-        type="submit"
-      >
-        Sign up
-      </button>
+      <SubmitButton isDisabled={!isValid || !isDirty} action="Sign up" />
     </form>
   );
 }

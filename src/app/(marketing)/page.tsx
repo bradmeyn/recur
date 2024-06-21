@@ -1,5 +1,5 @@
 import Link from "next/link";
-import SubscriptionPanel from "@/app/(dashboard)/_components/SubscriptionPanel";
+import SubscriptionPanel from "../(dashboard)/dashboard/_components/SubscriptionPanel";
 import { TEMP_SUBSCRIPTIONS } from "@/lib/constants";
 
 export default function Home() {
