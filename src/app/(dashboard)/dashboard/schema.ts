@@ -12,7 +12,7 @@ const frequencyValues = [
 
 export type Frequency = (typeof frequencyValues)[number];
 
-export const SubscriptionSchema = z.object({
+export const subscriptionSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   amount: z
     .number({ required_error: "Amount is required" })

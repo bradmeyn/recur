@@ -1,10 +1,10 @@
 "use client";
 
-import { SubscriptionSchema } from "@/lib/schema";
-import { addSubscriptionAction } from "@/lib/actions/subscriptions";
+import { subscriptionSchema } from "../schema";
+import { addSubscriptionAction } from "../actions";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CurrencyInput, Input, SelectInput } from "@/lib/components/Inputs";
+import { CurrencyInput, Input, SelectInput } from "@components/Inputs";
 
 import Modal from "@/lib/components/Modal";
 import useModal from "@/lib/hooks/useModal";
@@ -25,7 +25,7 @@ export default function SubscriptionAdd() {
     reset,
     formState: { errors, isValid },
   } = useForm({
-    resolver: zodResolver(SubscriptionSchema),
+    resolver: zodResolver(subscriptionSchema),
     defaultValues: {
       name: "",
       amount: "0",
@@ -34,12 +34,10 @@ export default function SubscriptionAdd() {
     },
   });
 
-  const addSubscription = async () => {
+  async function addSubscription() {
     // Validate the form
     trigger();
-    if (!isValid) {
-      return;
-    }
+    if (!isValid) return;
 
     const formData = new FormData();
     formData.append("name", getValues("name"));
@@ -52,12 +50,12 @@ export default function SubscriptionAdd() {
     const result = await addSubscriptionAction(formData);
 
     handleClose();
-  };
+  }
 
-  const handleClose = () => {
+  function handleClose() {
     reset();
     closeModal();
-  };
+  }
 
   return (
     <>

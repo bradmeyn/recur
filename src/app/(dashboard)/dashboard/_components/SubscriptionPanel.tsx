@@ -7,7 +7,8 @@ import { FREQUENCY_OPTIONS } from "@/lib/constants";
 import { RiCalendarLine } from "@remixicon/react";
 import { FrequencyContext } from "../_context/FrequencyContext";
 
-import { Subscription, Frequency } from "@/lib/types/data";
+import { Frequency } from "@/lib/types/data";
+import { type Subscription } from "@/database/schema/schema";
 import SubscriptionTable from "./SubscriptionTable";
 import CategoriesChart from "./CategoriesChart";
 

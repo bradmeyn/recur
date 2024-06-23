@@ -20,6 +20,6 @@
   }
 
   label {
-    @apply text-tremor-default font-medium text-tremor-content-strong dark:text-dark-tremor-content-strong mb-2 block;
+    @apply text-tremor-default font-medium text-tremor-content-strong dark:text-dark-tremor-content-strong mb-1 block;
   }
 }

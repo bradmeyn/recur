@@ -10,11 +10,17 @@ export const loginSchema = z.object({
 
 export const registerSchema = z
   .object({
-    name: z
-      .string()
-      .trim()
-      .min(2, { message: "First name must be 2 or more letters" }),
     ...loginSchema.shape,
+    confirmPassword: z.string().trim(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords must match",
+    path: ["confirmPassword"],
+  });
+
+export const newPasswordSchema = z
+  .object({
+    password: z.string().min(8, "Password must be at least 8 characters"),
     confirmPassword: z.string().trim(),
   })
   .refine((data) => data.password === data.confirmPassword, {

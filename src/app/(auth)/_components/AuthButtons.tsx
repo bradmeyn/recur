@@ -1,3 +1,5 @@
+"use client";
+
 import Spinner from "@/lib/components/Spinner";
 import { RiGithubFill, RiGoogleFill } from "@remixicon/react";
 import { useFormStatus } from "react-dom";
@@ -37,7 +39,7 @@ export function SubmitButton({
   return (
     <button
       className={`
-      mt-4  col-span-2 w-full  whitespace-nowrap rounded-tremor-default text-tremor-brand-inverted   py-2 text-center text-tremor-default font-medium
+      mt-8 w-full  whitespace-nowrap rounded-tremor-default text-tremor-brand-inverted  py-2 text-center text-tremor-default font-medium
       ${
         isDisabled || pending
           ? "bg-tremor-brand/65 cursor-not-allowed  "

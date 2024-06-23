@@ -77,7 +77,7 @@ export function Input({
   error,
 }: InputProps) {
   return (
-    <>
+    <div>
       <label htmlFor={id}>{label}</label>
       <TextInput
         id={id}
@@ -87,7 +87,7 @@ export function Input({
         error={error as boolean | undefined}
         errorMessage={error as string}
       />
-    </>
+    </div>
   );
 }
 
